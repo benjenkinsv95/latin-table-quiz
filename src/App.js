@@ -9,13 +9,58 @@ import SignUp from './components/SignUp/SignUp'
 import SignIn from './components/SignIn/SignIn'
 import SignOut from './components/SignOut/SignOut'
 import ChangePassword from './components/ChangePassword/ChangePassword'
+import Home from './components/Home/Home'
+import PracticeOptions from './components/PracticeOptions/PracticeOptions'
+import Practice from './components/Practice/Practice'
 
 class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
       user: null,
-      msgAlerts: []
+      msgAlerts: [],
+      practiceQuestions: [
+        {
+          word: 'Rose',
+          type: 'Declension', // declension or adjective
+          group: '1st', // 1st declension
+          genders: ['Feminine'], // some types of practice will have multiple genders (male/feminine)
+          singleGender: true, // Whether this word has a single gender (across different practice options) (false for adjectives)
+          audioUrl: 'some/audio/path.mp3', // TODO: a real audio path later
+          nominativeSingular: { case: 'Nominative', number: 'Singular', answer: 'rosa' },
+          genativeSingular: { case: 'Genative', number: 'Singular', answer: 'rosae' },
+          dativeSingular: { case: 'Dative', number: 'Singular', answer: 'rosae' },
+          accusativeSingular: { case: 'Accusative', number: 'Singular', answer: 'rosam' },
+          ablativeSingular: { case: 'Ablative', number: 'Singular', answer: 'rosā' },
+          nominativePlural: { case: 'Nominative', number: 'Plural', answer: 'rosae' },
+          genativePlural: { case: 'Genative', number: 'Plural', answer: 'rosārum' },
+          dativePlural: { case: 'Dative', number: 'Plural', answer: 'rosīs' },
+          accusativePlural: { case: 'Accusative', number: 'Plural', answer: 'rosās' },
+          ablativePlural: { case: 'Ablative', number: 'Plural', answer: 'rosīs' }
+        },
+        {
+          word: 'Long',
+          type: 'Adjective Comparison', // declension or adjective
+          group: 'Regular', // Regular or irregular
+          audioUrl: 'some/audio/path.mp3', // TODO: a real audio path later
+          fields: [
+            { type: 'Positive', answer: 'longus' },
+            { type: 'Comparative', answer: 'longior' },
+            { type: 'Superlative', answer: 'longissimus' }
+          ]
+        },
+        {
+          word: 'One',
+          type: 'Number', // declension or adjective
+          audioUrl: 'some/audio/path.mp3', // TODO: a real audio path later
+          fields: [
+            { type: 'Cardinal', answer: 'ūnus (-a, -um)' },
+            { type: 'Ordinal', answer: 'prīmus' },
+            { type: 'Adverbial', answer: 'semel' },
+            { type: 'Distributive', answer: 'singulī • ūnī' }
+          ]
+        }
+      ]
     }
   }
 
@@ -37,7 +82,7 @@ class App extends Component {
   }
 
   render () {
-    const { msgAlerts, user } = this.state
+    const { msgAlerts, user, practiceQuestions } = this.state
 
     return (
       <Fragment>
@@ -53,6 +98,15 @@ class App extends Component {
           />
         ))}
         <main className="container">
+          <Route exact path='/' render={() => (
+            <Home msgAlert={this.msgAlert} />
+          )} />
+          <Route exact path='/practice-options' render={() => (
+            <PracticeOptions msgAlert={this.msgAlert} />
+          )} />
+          <Route exact path='/practice' render={() => (
+            <Practice msgAlert={this.msgAlert} practiceQuestions={practiceQuestions} />
+          )} />
           <Route path='/sign-up' render={() => (
             <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
           )} />

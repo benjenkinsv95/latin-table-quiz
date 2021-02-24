@@ -1,0 +1,67 @@
+html, body, .grid-container { margin: 0; }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 2fr 5fr 5fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  // gap: 8px 16px;
+  grid-template-areas:
+    ". singular-title plural-title"
+    "nominative-label nominative-singular nominative-plural"
+    "genative-label genative-singular genative-plural"
+    "dative-label dative-singular dative-plural"
+    "accusative-label accusative-singular accusative-plural"
+    "ablative-label ablative-singular ablative-plural"
+    "vocative-label vocative-singular vocative-plural"
+    ". . action-buttons";
+}
+
+.singular-title { grid-area: singular-title; }
+
+.plural-title { grid-area: plural-title; }
+
+.nominative-label { grid-area: nominative-label; }
+
+.genative-label { grid-area: genative-label; }
+
+.dative-label { grid-area: dative-label; }
+
+.ablative-label { grid-area: ablative-label; }
+
+.vocative-label { grid-area: vocative-label; }
+
+.action-buttons { grid-area: action-buttons; }
+
+.accusative-label { grid-area: accusative-label; }
+
+.nominative-singular { grid-area: nominative-singular; }
+
+.genative-singular { grid-area: genative-singular; }
+
+.dative-singular { grid-area: dative-singular; }
+
+.accusative-singular { grid-area: accusative-singular; }
+
+.ablative-singular { grid-area: ablative-singular; }
+
+.vocative-singular { grid-area: vocative-singular; }
+
+.nominative-plural { grid-area: nominative-plural; }
+
+.genative-plural { grid-area: genative-plural; }
+
+.dative-plural { grid-area: dative-plural; }
+
+.accusative-plural { grid-area: accusative-plural; }
+
+.ablative-plural { grid-area: ablative-plural; }
+
+.vocative-plural { grid-area: vocative-plural; }
+
+// on xs screens
+@media (max-width: 575.98px) { 
+  
+  .grid-container {
+    display: block;
+  }
+}
