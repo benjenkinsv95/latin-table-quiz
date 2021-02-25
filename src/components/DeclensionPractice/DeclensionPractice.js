@@ -14,6 +14,7 @@ const hiddenOnXs = 'd-none d-sm-block'
 
 const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPracticeQuestion }) => {
   const [checkedAnswers, setCheckedAnswers] = useState(false)
+  const [correct, setCorrect] = useState(false)
   const [attempts, setAttempts] = useState({})
   const [playAudio, { stop: stopAudio }] = useSound(practiceQuestion.audioUrl)
 
@@ -31,9 +32,12 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
   // Whenever the user has clicked "check answers"
   useEffect(() => {
     // set the focus to the next-practice button
-    if (checkedAnswers) {
+    if (checkedAnswers && correct) {
       const nextPracticeButton = document.querySelector('.next-practice')
       nextPracticeButton.focus()
+    } else if (checkedAnswers && !correct) {
+      const tryAgainButton = document.querySelector('.try-again')
+      tryAgainButton.focus()
     }
   }, [checkedAnswers])
 
@@ -76,6 +80,9 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
 
     // play the audio so users can practice their pronunciation
     playAudio()
+
+    // update the correct state
+    setCorrect(isCorrect)
   }
 
   const resetState = () => {
@@ -89,6 +96,7 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
   // setup for the next question
   const handleNextPractice = () => {
     setRandomPracticeQuestion()
+    resetState()
   }
 
   // Anytime an input changes update the attempts state
@@ -153,8 +161,8 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
         {pluralFieldsJsx}
 
         <div className="left-button">
-          {checkedAnswers &&
-            <Button onClick={resetState} variant="secondary" className='btn-block text-white mb-2'>
+          {checkedAnswers && !correct &&
+            <Button onClick={resetState} variant="secondary" className='btn-block try-again text-white mb-2'>
               Try Again
             </Button>
           }
