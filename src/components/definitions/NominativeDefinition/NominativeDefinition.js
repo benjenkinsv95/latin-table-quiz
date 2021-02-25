@@ -25,12 +25,12 @@ const NominativeDefinition = () => {
           <Card>
             <Card.Body className="blockquote w100">
               <p>
-                This is easy. A noun occurs in the nominative case when it is the subject of the verb.
+                A noun occurs in the nominative case when it is the subject of the verb.
                 In the sentence
               </p>
 
               <p className='w100 text-center'>
-                <strong className='text-center'>Magister dat librum discipulo.</strong>
+                <strong>Magister dat librum discipulo.</strong>
               </p>
 
               <p>

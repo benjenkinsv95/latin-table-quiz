@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button'
 import './DeclensionPractice.scss'
 import messages from '../AutoDismissAlert/messages'
 import NominativeDefinition from '../definitions/NominativeDefinition/NominativeDefinition'
+import GenitiveDefinition from '../definitions/GenitiveDefinition/GenitiveDefinition'
 
 const getGendersDipslay = genders => genders.map((gender, index) => (
   <Fragment key={index}>
@@ -50,6 +51,8 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
   const getLabelJsx = label => {
     if (label.toLowerCase() === 'nominative') {
       return <NominativeDefinition />
+    } else if (label.toLowerCase() === 'genitive') {
+      return <GenitiveDefinition />
     }
 
     return label
@@ -162,7 +165,7 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
       <h6>{gender}</h6>
       <div className={`grid-container mt-4 ${hasVocativeCase ? 'grid-container-vocative' : ''}`}>
         <div className={`nominative-label ${hiddenOnXs}`}><h5><NominativeDefinition /></h5></div>
-        <div className={`genative-label ${hiddenOnXs}`}><h5>genative</h5></div>
+        <div className={`genitive-label ${hiddenOnXs}`}><h5><GenitiveDefinition /></h5></div>
         <div className={`dative-label ${hiddenOnXs}`}><h5>dative</h5></div>
         <div className={`ablative-label ${hiddenOnXs}`}><h5>ablative</h5></div>
         <div className={`vocative-label ${hasVocativeCase ? hiddenOnXs : 'd-none'}`}><h5>vocative</h5></div>

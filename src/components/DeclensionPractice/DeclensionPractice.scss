@@ -8,7 +8,7 @@ html, body, .grid-container { margin: 0; }
   grid-template-areas:
     ". singular-title plural-title"
     "nominative-label nominative-singular nominative-plural"
-    "genative-label genative-singular genative-plural"
+    "genitive-label genitive-singular genitive-plural"
     "dative-label dative-singular dative-plural"
     "accusative-label accusative-singular accusative-plural"
     "ablative-label ablative-singular ablative-plural"
@@ -19,7 +19,7 @@ html, body, .grid-container { margin: 0; }
   grid-template-areas:
     ". singular-title plural-title"
     "nominative-label nominative-singular nominative-plural"
-    "genative-label genative-singular genative-plural"
+    "genitive-label genitive-singular genitive-plural"
     "dative-label dative-singular dative-plural"
     "accusative-label accusative-singular accusative-plural"
     "ablative-label ablative-singular ablative-plural"
@@ -41,7 +41,7 @@ html, body, .grid-container { margin: 0; }
 
 .nominative-label { grid-area: nominative-label; }
 
-.genative-label { grid-area: genative-label; }
+.genitive-label { grid-area: genitive-label; }
 
 .dative-label { grid-area: dative-label; }
 
@@ -57,7 +57,7 @@ html, body, .grid-container { margin: 0; }
 
 .nominative-singular { grid-area: nominative-singular; }
 
-.genative-singular { grid-area: genative-singular; }
+.genitive-singular { grid-area: genitive-singular; }
 
 .dative-singular { grid-area: dative-singular; }
 
@@ -69,7 +69,7 @@ html, body, .grid-container { margin: 0; }
 
 .nominative-plural { grid-area: nominative-plural; }
 
-.genative-plural { grid-area: genative-plural; }
+.genitive-plural { grid-area: genitive-plural; }
 
 .dative-plural { grid-area: dative-plural; }
 
