@@ -78,14 +78,17 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
     playAudio()
   }
 
-  // setup for the next question
-  const handleNextPractice = () => {
+  const resetState = () => {
     stopAudio()
-    setRandomPracticeQuestion()
 
     // reset state
     setAttempts({})
     setCheckedAnswers(false)
+  }
+
+  // setup for the next question
+  const handleNextPractice = () => {
+    setRandomPracticeQuestion()
   }
 
   // Anytime an input changes update the attempts state
@@ -149,14 +152,22 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
         <div className="plural-title text-center"><h5>Plural</h5></div>
         {pluralFieldsJsx}
 
-        <div className="action-buttons">
+        <div className="left-button">
+          {checkedAnswers &&
+            <Button onClick={resetState} variant="secondary" className='btn-block text-white mb-2'>
+              Try Again
+            </Button>
+          }
+        </div>
+
+        <div className="right-button">
           {!checkedAnswers &&
             <Button onClick={handleCheckAnswers} variant="primary" className='btn-block'>
               Check Answers
             </Button>
           }
           {checkedAnswers &&
-            <Button onClick={handleNextPractice} variant="primary" className='btn-block next-practice'>
+            <Button onClick={handleNextPractice} variant="primary" className='btn-block next-practice mb-2'>
               Next Practice
             </Button>
           }
