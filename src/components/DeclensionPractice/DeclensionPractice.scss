@@ -27,6 +27,10 @@ html, body, .grid-container { margin: 0; }
     ". . action-buttons";
 }
 
+.answer-text {
+  font-size: 100%;
+}
+
 .placeholder-white::placeholder {
   color:white;
 }

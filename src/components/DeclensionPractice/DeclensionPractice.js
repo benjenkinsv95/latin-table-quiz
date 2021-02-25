@@ -51,7 +51,7 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
   // Get the text that shows the correct answer if the user got the question wrong, otherwise a falsy value.
   const getDangerTextJsx = (attempt = '', field) => {
     return checkedAnswers && attempt.trim().toLowerCase() !== field.answer.toLowerCase() && (
-      <Form.Text className="text-danger">
+      <Form.Text className="text-danger answer-text">
         Correct answer: {field.answer}
       </Form.Text>
     )

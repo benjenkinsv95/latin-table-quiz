@@ -63,6 +63,27 @@ class App extends Component {
             { case: 'Accusative', number: 'Plural', answer: 'amīcōs' },
             { case: 'Ablative', number: 'Plural', answer: 'amīcīs' }
           ]
+        }, {
+          word: 'Son',
+          type: 'Declension',
+          group: '2nd',
+          genders: ['Masculine'],
+          singleGender: true,
+          audioUrl: 'sounds/02b filius 2nd decl, Latin Summary of Forms (Ranieri).m4a',
+          fields: [
+            { case: 'Nominative', number: 'Singular', answer: 'fīlius' },
+            { case: 'Genative', number: 'Singular', answer: 'fīliī' },
+            { case: 'Dative', number: 'Singular', answer: 'fīliō' },
+            { case: 'Accusative', number: 'Singular', answer: 'fīlium' },
+            { case: 'Ablative', number: 'Singular', answer: 'fīliō' },
+            { case: 'Vocative', number: 'Singular', answer: 'fīliī' },
+
+            { case: 'Nominative', number: 'Plural', answer: 'fīliī' },
+            { case: 'Genative', number: 'Plural', answer: 'fīliōrum' },
+            { case: 'Dative', number: 'Plural', answer: 'fīliīs' },
+            { case: 'Accusative', number: 'Plural', answer: 'fīliōs' },
+            { case: 'Ablative', number: 'Plural', answer: 'fīliīs' }
+          ]
         },
         {
           word: 'Long',
