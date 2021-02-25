@@ -7,8 +7,14 @@ import Button from 'react-bootstrap/Button'
 
 import './DeclensionPractice.scss'
 import messages from '../AutoDismissAlert/messages'
+import NominativeDefinition from '../definitions/NominativeDefinition/NominativeDefinition'
 
-const getGendersDipslay = genders => genders.join(', ')
+const getGendersDipslay = genders => genders.map((gender, index) => (
+  <Fragment key={index}>
+    <span className={gender.toLowerCase()}>{gender}</span>{index !== genders.length - 1 && ', '}
+  </Fragment>
+))
+
 const onlyVisibleOnXs = 'd-block d-sm-none'
 const hiddenOnXs = 'd-none d-sm-block'
 
@@ -40,6 +46,14 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
       tryAgainButton.focus()
     }
   }, [checkedAnswers])
+
+  const getLabelJsx = label => {
+    if (label.toLowerCase() === 'nominative') {
+      return <NominativeDefinition />
+    }
+
+    return label
+  }
 
   // get the background class for inputs
   const getInputBg = (attempt = '', field) => {
@@ -115,7 +129,7 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
       <div key={index} className={`${field.case.toLowerCase()}-${field.number.toLowerCase()}`}>
         <Form.Group controlId={`${field.case.toLowerCase()}${field.number}`}>
           {/* Only show the label directly above the field on xs screens */}
-          <Form.Label className={onlyVisibleOnXs}>{field.case}</Form.Label>
+          <Form.Label className={onlyVisibleOnXs}><h5>{getLabelJsx(field.case)}</h5></Form.Label>
           <Form.Control
             // Add a class for the input. A danger or success color class after checking answers.
             className={getInputBg(attempts[`${field.case.toLowerCase()}${field.number}`], field)}
@@ -147,7 +161,7 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
       <h6>{group} {type}</h6>
       <h6>{gender}</h6>
       <div className={`grid-container mt-4 ${hasVocativeCase ? 'grid-container-vocative' : ''}`}>
-        <div className={`nominative-label ${hiddenOnXs}`}><h5>nominative</h5></div>
+        <div className={`nominative-label ${hiddenOnXs}`}><h5><NominativeDefinition /></h5></div>
         <div className={`genative-label ${hiddenOnXs}`}><h5>genative</h5></div>
         <div className={`dative-label ${hiddenOnXs}`}><h5>dative</h5></div>
         <div className={`ablative-label ${hiddenOnXs}`}><h5>ablative</h5></div>
