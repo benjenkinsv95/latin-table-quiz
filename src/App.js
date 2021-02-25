@@ -28,7 +28,7 @@ class App extends Component {
           group: '1st', // 1st declension
           genders: ['Feminine'], // some types of practice will have multiple genders (male/feminine)
           singleGender: true, // Whether this word has a single gender (across different practice options) (false for adjectives)
-          audioUrl: '/sounds/01 rosa 1st decl Latin Summary of Forms (Ranieri).m4a',
+          audioUrl: 'sounds/01 rosa 1st decl Latin Summary of Forms (Ranieri).m4a',
           fields: [
             { case: 'Nominative', number: 'Singular', answer: 'rosa' },
             { case: 'Genative', number: 'Singular', answer: 'rosae' },
@@ -48,7 +48,7 @@ class App extends Component {
           group: '2nd',
           genders: ['Masculine'],
           singleGender: true,
-          audioUrl: '/sounds/02a amicus 2nd decl, Latin Summary of Forms (Ranieri).m4a',
+          audioUrl: 'sounds/02a amicus 2nd decl, Latin Summary of Forms (Ranieri).m4a',
           fields: [
             { case: 'Nominative', number: 'Singular', answer: 'amīcus' },
             { case: 'Genative', number: 'Singular', answer: 'amīcī' },
