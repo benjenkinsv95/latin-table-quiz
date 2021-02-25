@@ -21,12 +21,16 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
   const gender = getGendersDipslay(genders)
   const hasVocativeCase = fields.some(field => field.case === 'Vocative')
 
+  // Whenever there is a new practice question
   useEffect(() => {
+    // set the focus to the first input
     const firstInput = document.querySelector('input')
     firstInput.focus()
   }, [practiceQuestion])
 
+  // Whenever the user has clicked "check answers"
   useEffect(() => {
+    // set the focus to the next-practice button
     if (checkedAnswers) {
       const nextPracticeButton = document.querySelector('.next-practice')
       nextPracticeButton.focus()
@@ -44,6 +48,7 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
     }
   }
 
+  // Get the text that shows the correct answer if the user got the question wrong, otherwise a falsy value.
   const getDangerTextJsx = (attempt = '', field) => {
     return checkedAnswers && attempt.trim().toLowerCase() !== field.answer.toLowerCase() && (
       <Form.Text className="text-danger">
@@ -52,11 +57,15 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
     )
   }
 
+  // Handle the user asking to check answers
   const handleCheckAnswers = event => {
+    // if every field is correct
     const isCorrect = fields.every(field => field.answer === (attempts[`${field.case.toLowerCase()}${field.number}`] || ''))
 
+    // update the checkedAnswers state
     setCheckedAnswers(true)
 
+    // show a message if folks got everything correct
     if (isCorrect) {
       msgAlert({
         heading: 'Correct!',
@@ -64,16 +73,22 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
         variant: 'success'
       })
     }
+
+    // play the audio so users can practice their pronunciation
     playAudio()
   }
 
+  // setup for the next question
   const handleNextPractice = () => {
     stopAudio()
     setRandomPracticeQuestion()
+
+    // reset state
     setAttempts({})
     setCheckedAnswers(false)
   }
 
+  // Anytime an input changes update the attempts state
   const handleChange = event => {
     event.persist()
     setAttempts(prevAttempts => {
@@ -82,21 +97,29 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
     })
   }
 
+  // Turn the fields into an array of divs to show on the page
   const jsxOfFields = fields => {
     return fields.map((field, index) => (
+      // Set the className so grid can place them on the screen ex. nominative-singular
       <div key={index} className={`${field.case.toLowerCase()}-${field.number.toLowerCase()}`}>
         <Form.Group controlId={`${field.case.toLowerCase()}${field.number}`}>
+          {/* Only show the label directly above the field on xs screens */}
           <Form.Label className={onlyVisibleOnXs}>{field.case}</Form.Label>
           <Form.Control
+            // Add a class for the input. A danger or success color class after checking answers.
             className={getInputBg(attempts[`${field.case.toLowerCase()}${field.number}`], field)}
             required
             type="text"
+            // set the name to the case followed by number ex. nominativeSingular
             name={`${field.case.toLowerCase()}${field.number}`}
+            // set the value to the current attempts value. ex. attempts['nominativeSingular']
             value={attempts[`${field.case.toLowerCase()}${field.number}`] || ''}
             placeholder={`Enter ${field.case} ${field.number}`}
             onChange={handleChange}
+            // turn off autocomplete, so folks have to type it each time
             autoComplete="off"
           />
+          {/* Set tooltip text underneath the input to show the correct answer. */}
           {getDangerTextJsx(attempts[`${field.case.trim().toLowerCase()}${field.number}`], field)}
         </Form.Group>
       </div>
