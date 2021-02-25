@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { Route } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
+import { knuthShuffle as shuffle } from 'knuth-shuffle'
 
 import AuthenticatedRoute from './components/AuthenticatedRoute/AuthenticatedRoute'
 import AutoDismissAlert from './components/AutoDismissAlert/AutoDismissAlert'
@@ -19,24 +20,49 @@ class App extends Component {
     this.state = {
       user: null,
       msgAlerts: [],
-      practiceQuestions: [
+      // all of the practice questions, shuffle them originally
+      practiceQuestions: shuffle([
         {
           word: 'Rose',
           type: 'Declension', // declension or adjective
           group: '1st', // 1st declension
           genders: ['Feminine'], // some types of practice will have multiple genders (male/feminine)
           singleGender: true, // Whether this word has a single gender (across different practice options) (false for adjectives)
-          audioUrl: 'some/audio/path.mp3', // TODO: a real audio path later
-          nominativeSingular: { case: 'Nominative', number: 'Singular', answer: 'rosa' },
-          genativeSingular: { case: 'Genative', number: 'Singular', answer: 'rosae' },
-          dativeSingular: { case: 'Dative', number: 'Singular', answer: 'rosae' },
-          accusativeSingular: { case: 'Accusative', number: 'Singular', answer: 'rosam' },
-          ablativeSingular: { case: 'Ablative', number: 'Singular', answer: 'rosā' },
-          nominativePlural: { case: 'Nominative', number: 'Plural', answer: 'rosae' },
-          genativePlural: { case: 'Genative', number: 'Plural', answer: 'rosārum' },
-          dativePlural: { case: 'Dative', number: 'Plural', answer: 'rosīs' },
-          accusativePlural: { case: 'Accusative', number: 'Plural', answer: 'rosās' },
-          ablativePlural: { case: 'Ablative', number: 'Plural', answer: 'rosīs' }
+          audioUrl: '/sounds/01 rosa 1st decl Latin Summary of Forms (Ranieri).m4a',
+          fields: [
+            { case: 'Nominative', number: 'Singular', answer: 'rosa' },
+            { case: 'Genative', number: 'Singular', answer: 'rosae' },
+            { case: 'Dative', number: 'Singular', answer: 'rosae' },
+            { case: 'Accusative', number: 'Singular', answer: 'rosam' },
+            { case: 'Ablative', number: 'Singular', answer: 'rosā' },
+
+            { case: 'Nominative', number: 'Plural', answer: 'rosae' },
+            { case: 'Genative', number: 'Plural', answer: 'rosārum' },
+            { case: 'Dative', number: 'Plural', answer: 'rosīs' },
+            { case: 'Accusative', number: 'Plural', answer: 'rosās' },
+            { case: 'Ablative', number: 'Plural', answer: 'rosīs' }
+          ]
+        }, {
+          word: 'Friend',
+          type: 'Declension',
+          group: '2nd',
+          genders: ['Masculine'],
+          singleGender: true,
+          audioUrl: '/sounds/02a amicus 2nd decl, Latin Summary of Forms (Ranieri).m4a',
+          fields: [
+            { case: 'Nominative', number: 'Singular', answer: 'amīcus' },
+            { case: 'Genative', number: 'Singular', answer: 'amīcī' },
+            { case: 'Dative', number: 'Singular', answer: 'amīcō' },
+            { case: 'Accusative', number: 'Singular', answer: 'amīcum' },
+            { case: 'Ablative', number: 'Singular', answer: 'amīcō' },
+            { case: 'Vocative', number: 'Singular', answer: 'amīce' },
+
+            { case: 'Nominative', number: 'Plural', answer: 'amīcī' },
+            { case: 'Genative', number: 'Plural', answer: 'amīcōrum' },
+            { case: 'Dative', number: 'Plural', answer: 'amīcīs' },
+            { case: 'Accusative', number: 'Plural', answer: 'amīcōs' },
+            { case: 'Ablative', number: 'Plural', answer: 'amīcīs' }
+          ]
         },
         {
           word: 'Long',
@@ -60,8 +86,26 @@ class App extends Component {
             { type: 'Distributive', answer: 'singulī • ūnī' }
           ]
         }
-      ]
+      ])
     }
+  }
+
+  chooseRandomPracticeQuestion = questionType => {
+    const randomQuestionIndex = this.state.practiceQuestions.findIndex(question => question.type === questionType)
+    const randomQuestion = this.state.practiceQuestions[randomQuestionIndex]
+    // copy
+    const newPracticeQuestions = [...this.state.practiceQuestions]
+
+    // remove the element
+    newPracticeQuestions.splice(randomQuestionIndex, 1)
+
+    // push it at the end of the list
+    newPracticeQuestions.push(randomQuestion)
+
+    // update the state
+    this.setState({ practiceQuestions: newPracticeQuestions })
+
+    return randomQuestion
   }
 
   setUser = user => this.setState({ user })
@@ -105,7 +149,7 @@ class App extends Component {
             <PracticeOptions msgAlert={this.msgAlert} />
           )} />
           <Route exact path='/practice' render={() => (
-            <Practice msgAlert={this.msgAlert} practiceQuestions={practiceQuestions} />
+            <Practice msgAlert={this.msgAlert} practiceQuestions={practiceQuestions} chooseRandomPracticeQuestion={this.chooseRandomPracticeQuestion} />
           )} />
           <Route path='/sign-up' render={() => (
             <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />

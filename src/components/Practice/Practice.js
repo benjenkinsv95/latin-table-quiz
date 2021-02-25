@@ -5,24 +5,23 @@ import DeclensionPractice from '../DeclensionPractice/DeclensionPractice'
 
 // import messages from '../AutoDismissAlert/messages'
 
-const Practice = ({ msgAlert, history, practiceQuestions }) => {
+const Practice = ({ msgAlert, history, practiceQuestions, chooseRandomPracticeQuestion }) => {
   const [practiceQuestion, setPracticeQuestion] = useState(null)
 
-  const chooseRandomPractice = () => {
-    // TODO: Randomize
-    return practiceQuestions.find(question => question.type === 'Declension')
+  const setRandomPracticeQuestion = () => {
+    const randomPractice = chooseRandomPracticeQuestion('Declension')
+    setPracticeQuestion(randomPractice)
   }
 
   useEffect(() => {
-    const randomPractice = chooseRandomPractice()
-    setPracticeQuestion(randomPractice)
+    setRandomPracticeQuestion()
   }, [])
 
   let practiceTypeJsx
   if (practiceQuestion === null) {
     practiceTypeJsx = <h3>Loading...</h3>
   } else if (practiceQuestion.type === 'Declension') {
-    practiceTypeJsx = <DeclensionPractice msgAlert={msgAlert} history={history} practiceQuestion={practiceQuestion} chooseRandomPractice={chooseRandomPractice} />
+    practiceTypeJsx = <DeclensionPractice msgAlert={msgAlert} history={history} practiceQuestion={practiceQuestion} setRandomPracticeQuestion={setRandomPracticeQuestion} />
   }
 
   return (

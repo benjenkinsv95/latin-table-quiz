@@ -1,5 +1,6 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
+import useSound from 'use-sound'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -11,36 +12,48 @@ const getGendersDipslay = genders => genders.join(', ')
 const onlyVisibleOnXs = 'd-block d-sm-none'
 const hiddenOnXs = 'd-none d-sm-block'
 
-const Practice = ({ msgAlert, history, practiceQuestion, chooseRandomPractice }) => {
-  const [nominativeSingular, setNominativeSingular] = useState('')
+const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPracticeQuestion }) => {
   const [checkedAnswers, setCheckedAnswers] = useState(false)
+  const [attempts, setAttempts] = useState({})
+  const [playAudio, { stop: stopAudio }] = useSound(practiceQuestion.audioUrl)
+
+  const { word, group, type, genders, fields } = practiceQuestion
+  const gender = getGendersDipslay(genders)
+  const hasVocativeCase = fields.some(field => field.case === 'Vocative')
+
+  useEffect(() => {
+    const firstInput = document.querySelector('input')
+    firstInput.focus()
+  }, [practiceQuestion])
+
+  useEffect(() => {
+    if (checkedAnswers) {
+      const nextPracticeButton = document.querySelector('.next-practice')
+      nextPracticeButton.focus()
+    }
+  }, [checkedAnswers])
 
   // get the background class for inputs
-  const getInputBg = (attempt, practiceQuestionCase) => {
+  const getInputBg = (attempt = '', field) => {
     if (!checkedAnswers) {
       return ''
-    } else if (attempt.toLowerCase() === practiceQuestionCase.answer.toLowerCase()) {
-      return 'bg-success text-white'
+    } else if (attempt.trim().toLowerCase() === field.answer.toLowerCase()) {
+      return 'bg-success text-white placeholder-white'
     } else {
-      return 'bg-danger text-white'
+      return 'bg-danger text-white placeholder-white'
     }
   }
 
-  const getDangerTextJsx = (attempt, practiceQuestionCase) => {
-    return checkedAnswers && attempt.toLowerCase() !== practiceQuestionCase.answer.toLowerCase() && (
+  const getDangerTextJsx = (attempt = '', field) => {
+    return checkedAnswers && attempt.trim().toLowerCase() !== field.answer.toLowerCase() && (
       <Form.Text className="text-danger">
-        Correct answer: {practiceQuestionCase.answer}
+        Correct answer: {field.answer}
       </Form.Text>
     )
   }
 
   const handleCheckAnswers = event => {
-    // TODO Add options, then set options. Options will likely be stored in App and passed down
-    let isCorrect = true
-
-    if (nominativeSingular.toLowerCase() !== practiceQuestion.nominativeSingular.answer.toLowerCase()) {
-      isCorrect = false
-    }
+    const isCorrect = fields.every(field => field.answer === (attempts[`${field.case.toLowerCase()}${field.number}`] || ''))
 
     setCheckedAnswers(true)
 
@@ -51,64 +64,67 @@ const Practice = ({ msgAlert, history, practiceQuestion, chooseRandomPractice })
         variant: 'success'
       })
     }
+    playAudio()
   }
 
   const handleNextPractice = () => {
-    chooseRandomPractice()
-    setNominativeSingular('')
+    stopAudio()
+    setRandomPracticeQuestion()
+    setAttempts({})
     setCheckedAnswers(false)
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    console.log('something')
+  const handleChange = event => {
+    event.persist()
+    setAttempts(prevAttempts => {
+      const stateChange = { ...prevAttempts, [event.target.name]: event.target.value }
+      return stateChange
+    })
   }
 
-  const { word, group, type, genders } = practiceQuestion
-  const gender = getGendersDipslay(genders)
+  const jsxOfFields = fields => {
+    return fields.map((field, index) => (
+      <div key={index} className={`${field.case.toLowerCase()}-${field.number.toLowerCase()}`}>
+        <Form.Group controlId={`${field.case.toLowerCase()}${field.number}`}>
+          <Form.Label className={onlyVisibleOnXs}>{field.case}</Form.Label>
+          <Form.Control
+            className={getInputBg(attempts[`${field.case.toLowerCase()}${field.number}`], field)}
+            required
+            type="text"
+            name={`${field.case.toLowerCase()}${field.number}`}
+            value={attempts[`${field.case.toLowerCase()}${field.number}`] || ''}
+            placeholder={`Enter ${field.case} ${field.number}`}
+            onChange={handleChange}
+            autoComplete="off"
+          />
+          {getDangerTextJsx(attempts[`${field.case.trim().toLowerCase()}${field.number}`], field)}
+        </Form.Group>
+      </div>
+    ))
+  }
+
+  console.log(fields)
+  const singularFieldsJsx = jsxOfFields(fields.filter(field => field.number === 'Singular'))
+  const pluralFieldsJsx = jsxOfFields(fields.filter(field => field.number === 'Plural'))
 
   return (
     <Fragment>
       <h3>{word}</h3>
       <h6>{group} {type}</h6>
       <h6>{gender}</h6>
-      <Form onSubmit={handleSubmit} className="grid-container mt-4">
+      <div className={`grid-container mt-4 ${hasVocativeCase ? 'grid-container-vocative' : ''}`}>
         <div className={`nominative-label ${hiddenOnXs}`}><h5>nominative</h5></div>
         <div className={`genative-label ${hiddenOnXs}`}><h5>genative</h5></div>
         <div className={`dative-label ${hiddenOnXs}`}><h5>dative</h5></div>
         <div className={`ablative-label ${hiddenOnXs}`}><h5>ablative</h5></div>
-        <div className={`vocative-label ${hiddenOnXs}`}><h5>vocative</h5></div>
+        <div className={`vocative-label ${hasVocativeCase ? hiddenOnXs : 'd-none'}`}><h5>vocative</h5></div>
         <div className={`accusative-label ${hiddenOnXs}`}><h5>accusative</h5></div>
 
         <div className="singular-title text-center"><h5>Singular</h5></div>
-        <div className="nominative-singular">
-          <Form.Group controlId="nominativeSingular">
-            <Form.Label className={onlyVisibleOnXs}>Nominative</Form.Label>
-            <Form.Control
-              className={getInputBg(nominativeSingular, practiceQuestion.nominativeSingular)}
-              required
-              type="text"
-              name="nominativeSingular"
-              value={nominativeSingular}
-              placeholder="Enter Nominative Singular"
-              onChange={e => setNominativeSingular(e.target.value)}
-            />
-            {getDangerTextJsx(nominativeSingular, practiceQuestion.nominativeSingular)}
-          </Form.Group>
-        </div>
-        <div className="genative-singular"></div>
-        <div className="dative-singular"></div>
-        <div className="accusative-singular"></div>
-        <div className="ablative-singular"></div>
-        <div className="vocative-singular"></div>
+        {singularFieldsJsx}
 
         <div className="plural-title text-center"><h5>Plural</h5></div>
-        <div className="nominative-plural"></div>
-        <div className="genative-plural"></div>
-        <div className="dative-plural"></div>
-        <div className="accusative-plural"></div>
-        <div className="ablative-plural"></div>
-        <div className="vocative-plural"></div>
+        {pluralFieldsJsx}
 
         <div className="action-buttons">
           {!checkedAnswers &&
@@ -117,14 +133,14 @@ const Practice = ({ msgAlert, history, practiceQuestion, chooseRandomPractice })
             </Button>
           }
           {checkedAnswers &&
-            <Button onClick={handleNextPractice} variant="primary" className='btn-block'>
+            <Button onClick={handleNextPractice} variant="primary" className='btn-block next-practice'>
               Next Practice
             </Button>
           }
         </div>
-      </Form>
+      </div>
     </Fragment>
   )
 }
 
-export default withRouter(Practice)
+export default withRouter(DeclensionPractice)

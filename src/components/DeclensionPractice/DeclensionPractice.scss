@@ -3,8 +3,19 @@ html, body, .grid-container { margin: 0; }
 .grid-container {
   display: grid;
   grid-template-columns: 2fr 5fr 5fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  // gap: 8px 16px;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 0px 16px;
+  grid-template-areas:
+    ". singular-title plural-title"
+    "nominative-label nominative-singular nominative-plural"
+    "genative-label genative-singular genative-plural"
+    "dative-label dative-singular dative-plural"
+    "accusative-label accusative-singular accusative-plural"
+    "ablative-label ablative-singular ablative-plural"
+    ". . action-buttons";
+}
+
+.grid-container-vocative {
   grid-template-areas:
     ". singular-title plural-title"
     "nominative-label nominative-singular nominative-plural"
@@ -14,6 +25,10 @@ html, body, .grid-container { margin: 0; }
     "ablative-label ablative-singular ablative-plural"
     "vocative-label vocative-singular vocative-plural"
     ". . action-buttons";
+}
+
+.placeholder-white::placeholder {
+  color:white;
 }
 
 .singular-title { grid-area: singular-title; }
