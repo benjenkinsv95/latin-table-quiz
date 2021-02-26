@@ -194,7 +194,7 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
     return fields.map((field, index) => {
       const caseNumberShishkabob = `${field.case.toLowerCase()}-${field.number.toLowerCase()}`
       const caseNumberCamel = `${field.case.toLowerCase()}${field.number}`
-      const typeOneHidden = practiceMode === 'type-one' && typeOneField && (field.case !== typeOneField.case || field.number !== typeOneField.number) && !checkedAnswers
+      const typeOneHidden = practiceMode === 'type-one' && typeOneField && typeOneHideOthers && (field.case !== typeOneField.case || field.number !== typeOneField.number) && !checkedAnswers
       const typeOneHiddenClass = typeOneHidden ? 'd-none' : ''
       return (
         // Set the className so grid can place them on the screen ex. nominative-singular
@@ -226,6 +226,10 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
     })
   }
 
+  const showNumberLabelCss = (number) => {
+    const hide = practiceMode === 'type-one' && typeOneField && typeOneHideOthers && number !== typeOneField.number && !checkedAnswers
+    return hide ? 'd-none' : ''
+  }
   console.log(fields)
   const singularFieldsJsx = jsxOfFields(fields.filter(field => field.number === 'Singular'))
   const pluralFieldsJsx = jsxOfFields(fields.filter(field => field.number === 'Plural'))
@@ -243,10 +247,10 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
         <div className={`vocative-label ${hasVocativeCase ? hiddenOnXs : 'd-none'}`}><h5 className='text-right'><VocativeDefinition /></h5></div>
         <div className={`accusative-label ${hiddenOnXs}`}><h5 className='text-right'><AccusativeDefinition /></h5></div>
 
-        <div className="singular-title text-center"><h5>Singular</h5></div>
+        <div className="singular-title text-center"><h5 className={showNumberLabelCss('Singular')}>Singular</h5></div>
         {singularFieldsJsx}
 
-        <div className="plural-title text-center"><h5>Plural</h5></div>
+        <div className="plural-title text-center"><h5 className={showNumberLabelCss('Plural')}>Plural</h5></div>
         {pluralFieldsJsx}
 
         <div className="left-button">
