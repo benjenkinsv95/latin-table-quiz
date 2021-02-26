@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import useSound from 'use-sound'
+import { removeMacrons } from '../../utils'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -23,7 +24,7 @@ const getGendersDipslay = genders => genders.map((gender, index) => (
 const onlyVisibleOnXs = 'd-block d-sm-none'
 const hiddenOnXs = 'd-none d-sm-block'
 
-const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPracticeQuestion }) => {
+const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPracticeQuestion, useMacrons }) => {
   const [checkedAnswers, setCheckedAnswers] = useState(false)
   const [correct, setCorrect] = useState(false)
   const [attempts, setAttempts] = useState({})
@@ -52,6 +53,26 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
     }
   }, [checkedAnswers])
 
+  // when the component unmounts
+  useEffect(() => {
+    return () => {
+      // TODO: Figure out how to stop audio when component unmounts
+      // useSound does not make this straight forward
+    }
+  }, [])
+
+  const isCorrect = (attempt = '', answer) => {
+    let sanitizedAttempt = attempt.trim().toLowerCase()
+    let sanitizedAnswer = answer.trim().toLowerCase()
+
+    if (!useMacrons) {
+      sanitizedAttempt = removeMacrons(sanitizedAttempt)
+      sanitizedAnswer = removeMacrons(sanitizedAnswer)
+    }
+
+    return sanitizedAttempt === sanitizedAnswer
+  }
+
   const getLabelJsx = label => {
     if (label.toLowerCase() === 'nominative') {
       return <NominativeDefinition />
@@ -74,7 +95,7 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
   const getInputBg = (attempt = '', field) => {
     if (!checkedAnswers) {
       return ''
-    } else if (attempt.trim().toLowerCase() === field.answer.toLowerCase()) {
+    } else if (isCorrect(attempt, field.answer)) {
       return 'bg-success text-white placeholder-white'
     } else {
       return 'bg-danger text-white placeholder-white'
@@ -83,7 +104,7 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
 
   // Get the text that shows the correct answer if the user got the question wrong, otherwise a falsy value.
   const getDangerTextJsx = (attempt = '', field) => {
-    return checkedAnswers && attempt.trim().toLowerCase() !== field.answer.toLowerCase() && (
+    return checkedAnswers && !isCorrect(attempt, field.answer) && (
       <Form.Text className="text-danger answer-text">
         Correct answer: {field.answer}
       </Form.Text>
@@ -93,13 +114,13 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
   // Handle the user asking to check answers
   const handleCheckAnswers = event => {
     // if every field is correct
-    const isCorrect = fields.every(field => field.answer === (attempts[`${field.case.toLowerCase()}${field.number}`] || ''))
+    const checkCorrect = fields.every(field => isCorrect(attempts[`${field.case.toLowerCase()}${field.number}`], field.answer))
 
     // update the checkedAnswers state
     setCheckedAnswers(true)
 
     // show a message if folks got everything correct
-    if (isCorrect) {
+    if (checkCorrect) {
       msgAlert({
         heading: 'Correct!',
         message: messages.correctAnswer,
@@ -111,7 +132,7 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
     playAudio()
 
     // update the correct state
-    setCorrect(isCorrect)
+    setCorrect(checkCorrect)
   }
 
   const resetState = () => {

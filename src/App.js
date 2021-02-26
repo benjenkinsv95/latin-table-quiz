@@ -13,6 +13,7 @@ import ChangePassword from './components/ChangePassword/ChangePassword'
 import Home from './components/Home/Home'
 import PracticeOptions from './components/PracticeOptions/PracticeOptions'
 import Practice from './components/Practice/Practice'
+import { loadBooleanOption, saveBooleanOption } from './utils'
 
 class App extends Component {
   constructor (props) {
@@ -172,8 +173,14 @@ class App extends Component {
             { type: 'Distributive', answer: 'singulī • ūnī' }
           ]
         }
-      ])
+      ]),
+      useMacrons: loadBooleanOption('useMacrons', true)
     }
+  }
+
+  setUseMacrons = useMacrons => {
+    this.setState({ useMacrons })
+    saveBooleanOption('useMacrons', useMacrons)
   }
 
   chooseRandomPracticeQuestion = questionType => {
@@ -212,7 +219,7 @@ class App extends Component {
   }
 
   render () {
-    const { msgAlerts, user, practiceQuestions } = this.state
+    const { msgAlerts, user, practiceQuestions, useMacrons } = this.state
 
     return (
       <Fragment>
@@ -232,10 +239,19 @@ class App extends Component {
             <Home msgAlert={this.msgAlert} />
           )} />
           <Route exact path='/practice-options' render={() => (
-            <PracticeOptions msgAlert={this.msgAlert} />
+            <PracticeOptions
+              msgAlert={this.msgAlert}
+              useMacrons={useMacrons}
+              setUseMacrons={this.setUseMacrons}
+            />
           )} />
           <Route exact path='/practice' render={() => (
-            <Practice msgAlert={this.msgAlert} practiceQuestions={practiceQuestions} chooseRandomPracticeQuestion={this.chooseRandomPracticeQuestion} />
+            <Practice
+              msgAlert={this.msgAlert}
+              practiceQuestions={practiceQuestions}
+              chooseRandomPracticeQuestion={this.chooseRandomPracticeQuestion}
+              useMacrons={useMacrons}
+            />
           )} />
           <Route path='/sign-up' render={() => (
             <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />

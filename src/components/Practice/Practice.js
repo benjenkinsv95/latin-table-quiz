@@ -5,7 +5,7 @@ import DeclensionPractice from '../DeclensionPractice/DeclensionPractice'
 
 // import messages from '../AutoDismissAlert/messages'
 
-const Practice = ({ msgAlert, history, practiceQuestions, chooseRandomPracticeQuestion }) => {
+const Practice = ({ msgAlert, history, practiceQuestions, chooseRandomPracticeQuestion, useMacrons }) => {
   const [practiceQuestion, setPracticeQuestion] = useState(null)
 
   const setRandomPracticeQuestion = () => {
@@ -21,7 +21,15 @@ const Practice = ({ msgAlert, history, practiceQuestions, chooseRandomPracticeQu
   if (practiceQuestion === null) {
     practiceTypeJsx = <h3>Loading...</h3>
   } else if (practiceQuestion.type === 'Declension') {
-    practiceTypeJsx = <DeclensionPractice msgAlert={msgAlert} history={history} practiceQuestion={practiceQuestion} setRandomPracticeQuestion={setRandomPracticeQuestion} />
+    practiceTypeJsx = (
+      <DeclensionPractice
+        msgAlert={msgAlert}
+        history={history}
+        practiceQuestion={practiceQuestion}
+        setRandomPracticeQuestion={setRandomPracticeQuestion}
+        useMacrons={useMacrons}
+      />
+    )
   }
 
   return (
