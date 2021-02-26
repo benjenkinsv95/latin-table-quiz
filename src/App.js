@@ -22,71 +22,71 @@ class App extends Component {
       msgAlerts: [],
       // all of the practice questions, shuffle them originally
       practiceQuestions: shuffle([
-        // {
-        //   word: 'Rose',
-        //   type: 'Declension', // declension or adjective
-        //   group: '1st', // 1st declension
-        //   genders: ['Feminine'], // some types of practice will have multiple genders (male/feminine)
-        //   singleGender: true, // Whether this word has a single gender (across different practice options) (false for adjectives)
-        //   audioUrl: 'sounds/01 rosa 1st decl Latin Summary of Forms (Ranieri).m4a',
-        //   fields: [
-        //     { case: 'Nominative', number: 'Singular', answer: 'rosa' },
-        //     { case: 'Genitive', number: 'Singular', answer: 'rosae' },
-        //     { case: 'Dative', number: 'Singular', answer: 'rosae' },
-        //     { case: 'Accusative', number: 'Singular', answer: 'rosam' },
-        //     { case: 'Ablative', number: 'Singular', answer: 'rosā' },
+        {
+          word: 'Rose',
+          type: 'Declension', // declension or adjective
+          group: '1st', // 1st declension
+          genders: ['Feminine'], // some types of practice will have multiple genders (male/feminine)
+          singleGender: true, // Whether this word has a single gender (across different practice options) (false for adjectives)
+          audioUrl: 'sounds/01 rosa 1st decl Latin Summary of Forms (Ranieri).m4a',
+          fields: [
+            { case: 'Nominative', number: 'Singular', answer: 'rosa' },
+            { case: 'Genitive', number: 'Singular', answer: 'rosae' },
+            { case: 'Dative', number: 'Singular', answer: 'rosae' },
+            { case: 'Accusative', number: 'Singular', answer: 'rosam' },
+            { case: 'Ablative', number: 'Singular', answer: 'rosā' },
 
-        //     { case: 'Nominative', number: 'Plural', answer: 'rosae' },
-        //     { case: 'Genitive', number: 'Plural', answer: 'rosārum' },
-        //     { case: 'Dative', number: 'Plural', answer: 'rosīs' },
-        //     { case: 'Accusative', number: 'Plural', answer: 'rosās' },
-        //     { case: 'Ablative', number: 'Plural', answer: 'rosīs' }
-        //   ]
-        // },
-        // {
-        //   word: 'Friend',
-        //   type: 'Declension',
-        //   group: '2nd',
-        //   genders: ['Masculine'],
-        //   singleGender: true,
-        //   audioUrl: 'sounds/02a amicus 2nd decl, Latin Summary of Forms (Ranieri).m4a',
-        //   fields: [
-        //     { case: 'Nominative', number: 'Singular', answer: 'amīcus' },
-        //     { case: 'Genitive', number: 'Singular', answer: 'amīcī' },
-        //     { case: 'Dative', number: 'Singular', answer: 'amīcō' },
-        //     { case: 'Accusative', number: 'Singular', answer: 'amīcum' },
-        //     { case: 'Ablative', number: 'Singular', answer: 'amīcō' },
-        //     { case: 'Vocative', number: 'Singular', answer: 'amīce' },
+            { case: 'Nominative', number: 'Plural', answer: 'rosae' },
+            { case: 'Genitive', number: 'Plural', answer: 'rosārum' },
+            { case: 'Dative', number: 'Plural', answer: 'rosīs' },
+            { case: 'Accusative', number: 'Plural', answer: 'rosās' },
+            { case: 'Ablative', number: 'Plural', answer: 'rosīs' }
+          ]
+        },
+        {
+          word: 'Friend',
+          type: 'Declension',
+          group: '2nd',
+          genders: ['Masculine'],
+          singleGender: true,
+          audioUrl: 'sounds/02a amicus 2nd decl, Latin Summary of Forms (Ranieri).m4a',
+          fields: [
+            { case: 'Nominative', number: 'Singular', answer: 'amīcus' },
+            { case: 'Genitive', number: 'Singular', answer: 'amīcī' },
+            { case: 'Dative', number: 'Singular', answer: 'amīcō' },
+            { case: 'Accusative', number: 'Singular', answer: 'amīcum' },
+            { case: 'Ablative', number: 'Singular', answer: 'amīcō' },
+            { case: 'Vocative', number: 'Singular', answer: 'amīce' },
 
-        //     { case: 'Nominative', number: 'Plural', answer: 'amīcī' },
-        //     { case: 'Genitive', number: 'Plural', answer: 'amīcōrum' },
-        //     { case: 'Dative', number: 'Plural', answer: 'amīcīs' },
-        //     { case: 'Accusative', number: 'Plural', answer: 'amīcōs' },
-        //     { case: 'Ablative', number: 'Plural', answer: 'amīcīs' }
-        //   ]
-        // },
-        // {
-        //   word: 'Son',
-        //   type: 'Declension',
-        //   group: '2nd',
-        //   genders: ['Masculine'],
-        //   singleGender: true,
-        //   audioUrl: 'sounds/02b filius 2nd decl, Latin Summary of Forms (Ranieri).m4a',
-        //   fields: [
-        //     { case: 'Nominative', number: 'Singular', answer: 'fīlius' },
-        //     { case: 'Genitive', number: 'Singular', answer: 'fīliī' },
-        //     { case: 'Dative', number: 'Singular', answer: 'fīliō' },
-        //     { case: 'Accusative', number: 'Singular', answer: 'fīlium' },
-        //     { case: 'Ablative', number: 'Singular', answer: 'fīliō' },
-        //     { case: 'Vocative', number: 'Singular', answer: 'fīliī' },
+            { case: 'Nominative', number: 'Plural', answer: 'amīcī' },
+            { case: 'Genitive', number: 'Plural', answer: 'amīcōrum' },
+            { case: 'Dative', number: 'Plural', answer: 'amīcīs' },
+            { case: 'Accusative', number: 'Plural', answer: 'amīcōs' },
+            { case: 'Ablative', number: 'Plural', answer: 'amīcīs' }
+          ]
+        },
+        {
+          word: 'Son',
+          type: 'Declension',
+          group: '2nd',
+          genders: ['Masculine'],
+          singleGender: true,
+          audioUrl: 'sounds/02b filius 2nd decl, Latin Summary of Forms (Ranieri).m4a',
+          fields: [
+            { case: 'Nominative', number: 'Singular', answer: 'fīlius' },
+            { case: 'Genitive', number: 'Singular', answer: 'fīliī' },
+            { case: 'Dative', number: 'Singular', answer: 'fīliō' },
+            { case: 'Accusative', number: 'Singular', answer: 'fīlium' },
+            { case: 'Ablative', number: 'Singular', answer: 'fīliō' },
+            { case: 'Vocative', number: 'Singular', answer: 'fīliī' },
 
-        //     { case: 'Nominative', number: 'Plural', answer: 'fīliī' },
-        //     { case: 'Genitive', number: 'Plural', answer: 'fīliōrum' },
-        //     { case: 'Dative', number: 'Plural', answer: 'fīliīs' },
-        //     { case: 'Accusative', number: 'Plural', answer: 'fīliōs' },
-        //     { case: 'Ablative', number: 'Plural', answer: 'fīliīs' }
-        //   ]
-        // },
+            { case: 'Nominative', number: 'Plural', answer: 'fīliī' },
+            { case: 'Genitive', number: 'Plural', answer: 'fīliōrum' },
+            { case: 'Dative', number: 'Plural', answer: 'fīliīs' },
+            { case: 'Accusative', number: 'Plural', answer: 'fīliōs' },
+            { case: 'Ablative', number: 'Plural', answer: 'fīliīs' }
+          ]
+        },
         {
           word: 'Boy',
           type: 'Declension',

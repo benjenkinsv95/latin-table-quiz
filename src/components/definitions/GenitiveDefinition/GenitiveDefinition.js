@@ -17,7 +17,7 @@ const GenitiveDefinition = () => {
         genitive
       </Nav.Link>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal size="lg" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>The Genitive Case</Modal.Title>
         </Modal.Header>

@@ -9,6 +9,10 @@ import './DeclensionPractice.scss'
 import messages from '../AutoDismissAlert/messages'
 import NominativeDefinition from '../definitions/NominativeDefinition/NominativeDefinition'
 import GenitiveDefinition from '../definitions/GenitiveDefinition/GenitiveDefinition'
+import AccusativeDefinition from '../definitions/AccusativeDefinition/AccusativeDefinition'
+import DativeDefinition from '../definitions/DativeDefinition/DativeDefinition'
+import AblativeDefinition from '../definitions/AblativeDefinition/AblativeDefinition'
+import VocativeDefinition from '../definitions/VocativeDefinition/VocativeDefinition'
 
 const getGendersDipslay = genders => genders.map((gender, index) => (
   <Fragment key={index}>
@@ -53,6 +57,14 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
       return <NominativeDefinition />
     } else if (label.toLowerCase() === 'genitive') {
       return <GenitiveDefinition />
+    } else if (label.toLowerCase() === 'accusative') {
+      return <AccusativeDefinition />
+    } else if (label.toLowerCase() === 'dative') {
+      return <DativeDefinition />
+    } else if (label.toLowerCase() === 'ablative') {
+      return <AblativeDefinition />
+    } else if (label.toLowerCase() === 'vocative') {
+      return <VocativeDefinition />
     }
 
     return label
@@ -164,12 +176,12 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
       <h6>{group} {type}</h6>
       <h6>{gender}</h6>
       <div className={`grid-container mt-4 ${hasVocativeCase ? 'grid-container-vocative' : ''}`}>
-        <div className={`nominative-label ${hiddenOnXs}`}><h5><NominativeDefinition /></h5></div>
-        <div className={`genitive-label ${hiddenOnXs}`}><h5><GenitiveDefinition /></h5></div>
-        <div className={`dative-label ${hiddenOnXs}`}><h5>dative</h5></div>
-        <div className={`ablative-label ${hiddenOnXs}`}><h5>ablative</h5></div>
-        <div className={`vocative-label ${hasVocativeCase ? hiddenOnXs : 'd-none'}`}><h5>vocative</h5></div>
-        <div className={`accusative-label ${hiddenOnXs}`}><h5>accusative</h5></div>
+        <div className={`nominative-label ${hiddenOnXs}`}><h5 className='text-right'><NominativeDefinition /></h5></div>
+        <div className={`genitive-label ${hiddenOnXs}`}><h5 className='text-right'><GenitiveDefinition /></h5></div>
+        <div className={`dative-label ${hiddenOnXs}`}><h5 className='text-right'><DativeDefinition /></h5></div>
+        <div className={`ablative-label ${hiddenOnXs}`}><h5 className='text-right'><AblativeDefinition /></h5></div>
+        <div className={`vocative-label ${hasVocativeCase ? hiddenOnXs : 'd-none'}`}><h5 className='text-right'><VocativeDefinition /></h5></div>
+        <div className={`accusative-label ${hiddenOnXs}`}><h5 className='text-right'><AccusativeDefinition /></h5></div>
 
         <div className="singular-title text-center"><h5>Singular</h5></div>
         {singularFieldsJsx}
