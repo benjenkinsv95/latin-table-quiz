@@ -29,6 +29,7 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
   const [correct, setCorrect] = useState(false)
   const [attempts, setAttempts] = useState({})
   const [playAudio, { stop: stopAudio }] = useSound(practiceQuestion.audioUrl)
+  const [message, setMessage] = useState('')
 
   const { word, group, type, genders, fields } = practiceQuestion
   const gender = getGendersDipslay(genders)
@@ -146,11 +147,8 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
 
     // show a message if folks got everything correct
     if (checkCorrect) {
-      msgAlert({
-        heading: 'Correct!',
-        message: messages.correctAnswer,
-        variant: 'success'
-      })
+      setMessage(messages.correctAnswer)
+      setTimeout(() => setMessage(''), 5000)
     }
 
     // play the audio so users can practice their pronunciation
@@ -274,6 +272,7 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
           }
         </div>
       </div>
+      <h6 className='text-center mt-2'>{message}</h6>
     </Fragment>
   )
 }
