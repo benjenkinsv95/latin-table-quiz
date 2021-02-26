@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import useSound from 'use-sound'
-import { removeMacrons } from '../../utils'
+import { removeMacrons, removeElementAtRandom } from '../../utils'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -24,7 +24,7 @@ const getGendersDipslay = genders => genders.map((gender, index) => (
 const onlyVisibleOnXs = 'd-block d-sm-none'
 const hiddenOnXs = 'd-none d-sm-block'
 
-const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPracticeQuestion, useMacrons }) => {
+const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPracticeQuestion, useMacrons, practiceMode }) => {
   const [checkedAnswers, setCheckedAnswers] = useState(false)
   const [correct, setCorrect] = useState(false)
   const [attempts, setAttempts] = useState({})
@@ -36,9 +36,11 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
 
   // Whenever there is a new practice question
   useEffect(() => {
-    // set the focus to the first input
-    const firstInput = document.querySelector('input')
-    firstInput.focus()
+    if (practiceMode === 'type-all') {
+      // set the focus to the first input
+      const firstInput = document.querySelector('input')
+      firstInput.focus()
+    }
   }, [practiceQuestion])
 
   // Whenever the user has clicked "check answers"
@@ -50,6 +52,26 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
     } else if (checkedAnswers && !correct) {
       const tryAgainButton = document.querySelector('.try-again')
       tryAgainButton.focus()
+    }
+  }, [checkedAnswers])
+
+  useEffect(() => {
+    if (!checkedAnswers && practiceMode === 'type-one') {
+      // fill in all of the fields except one
+      const fieldsCopy = [...fields]
+      const fieldToType = removeElementAtRandom(fieldsCopy)
+      const newAttempts = { ...attempts }
+
+      for (const field of fieldsCopy) {
+        newAttempts[`${field.case.toLowerCase()}${field.number}`] = field.answer
+      }
+
+      setAttempts(newAttempts)
+
+      // set focused input
+      const caseNumberShishkabob = `${fieldToType.case.toLowerCase()}-${fieldToType.number.toLowerCase()}`
+      const fieldToTypeInput = document.querySelector(`#${caseNumberShishkabob}`)
+      fieldToTypeInput.focus()
     }
   }, [checkedAnswers])
 
@@ -160,31 +182,36 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
 
   // Turn the fields into an array of divs to show on the page
   const jsxOfFields = fields => {
-    return fields.map((field, index) => (
-      // Set the className so grid can place them on the screen ex. nominative-singular
-      <div key={index} className={`${field.case.toLowerCase()}-${field.number.toLowerCase()}`}>
-        <Form.Group controlId={`${field.case.toLowerCase()}${field.number}`}>
-          {/* Only show the label directly above the field on xs screens */}
-          <Form.Label className={onlyVisibleOnXs}><h5>{getLabelJsx(field.case)}</h5></Form.Label>
-          <Form.Control
-            // Add a class for the input. A danger or success color class after checking answers.
-            className={getInputBg(attempts[`${field.case.toLowerCase()}${field.number}`], field)}
-            required
-            type="text"
-            // set the name to the case followed by number ex. nominativeSingular
-            name={`${field.case.toLowerCase()}${field.number}`}
-            // set the value to the current attempts value. ex. attempts['nominativeSingular']
-            value={attempts[`${field.case.toLowerCase()}${field.number}`] || ''}
-            placeholder={`Enter ${field.case} ${field.number}`}
-            onChange={handleChange}
-            // turn off autocomplete, so folks have to type it each time
-            autoComplete="off"
-          />
-          {/* Set tooltip text underneath the input to show the correct answer. */}
-          {getDangerTextJsx(attempts[`${field.case.trim().toLowerCase()}${field.number}`], field)}
-        </Form.Group>
-      </div>
-    ))
+    return fields.map((field, index) => {
+      const caseNumberShishkabob = `${field.case.toLowerCase()}-${field.number.toLowerCase()}`
+      const caseNumberCamel = `${field.case.toLowerCase()}${field.number}`
+      return (
+        // Set the className so grid can place them on the screen ex. nominative-singular
+        <div key={index} className={caseNumberShishkabob}>
+          <Form.Group>
+            {/* Only show the label directly above the field on xs screens */}
+            <Form.Label className={onlyVisibleOnXs}><h5>{getLabelJsx(field.case)}</h5></Form.Label>
+            <Form.Control
+              // Add a class for the input. A danger or success color class after checking answers.
+              className={getInputBg(attempts[caseNumberCamel], field)}
+              required
+              type="text"
+              // set the name to the case followed by number ex. nominativeSingular
+              name={caseNumberCamel}
+              // set the value to the current attempts value. ex. attempts['nominativeSingular']
+              value={attempts[caseNumberCamel] || ''}
+              placeholder={`Enter ${field.case} ${field.number}`}
+              onChange={handleChange}
+              // turn off autocomplete, so folks have to type it each time
+              autoComplete="off"
+              id={caseNumberShishkabob}
+            />
+            {/* Set tooltip text underneath the input to show the correct answer. */}
+            {getDangerTextJsx(attempts[`${field.case.trim().toLowerCase()}${field.number}`], field)}
+          </Form.Group>
+        </div>
+      )
+    })
   }
 
   console.log(fields)

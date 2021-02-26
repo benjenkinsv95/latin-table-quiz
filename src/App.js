@@ -174,13 +174,20 @@ class App extends Component {
           ]
         }
       ]),
-      useMacrons: loadBooleanOption('useMacrons', true)
+      useMacrons: loadBooleanOption('useMacrons', true),
+      // type-all, type-one
+      practiceMode: localStorage.getItem('practiceMode') || 'type-all'
     }
   }
 
   setUseMacrons = useMacrons => {
     this.setState({ useMacrons })
     saveBooleanOption('useMacrons', useMacrons)
+  }
+
+  setPracticeMode = practiceMode => {
+    this.setState({ practiceMode })
+    localStorage.setItem('practiceMode', practiceMode)
   }
 
   chooseRandomPracticeQuestion = questionType => {
@@ -219,7 +226,7 @@ class App extends Component {
   }
 
   render () {
-    const { msgAlerts, user, practiceQuestions, useMacrons } = this.state
+    const { msgAlerts, user, practiceQuestions, useMacrons, practiceMode } = this.state
 
     return (
       <Fragment>
@@ -243,6 +250,8 @@ class App extends Component {
               msgAlert={this.msgAlert}
               useMacrons={useMacrons}
               setUseMacrons={this.setUseMacrons}
+              setPracticeMode={this.setPracticeMode}
+              practiceMode={practiceMode}
             />
           )} />
           <Route exact path='/practice' render={() => (
@@ -251,6 +260,7 @@ class App extends Component {
               practiceQuestions={practiceQuestions}
               chooseRandomPracticeQuestion={this.chooseRandomPracticeQuestion}
               useMacrons={useMacrons}
+              practiceMode={practiceMode}
             />
           )} />
           <Route path='/sign-up' render={() => (

@@ -5,7 +5,7 @@ import DeclensionPractice from '../DeclensionPractice/DeclensionPractice'
 
 // import messages from '../AutoDismissAlert/messages'
 
-const Practice = ({ msgAlert, history, practiceQuestions, chooseRandomPracticeQuestion, useMacrons }) => {
+const Practice = ({ msgAlert, history, practiceQuestions, chooseRandomPracticeQuestion, useMacrons, practiceMode }) => {
   const [practiceQuestion, setPracticeQuestion] = useState(null)
 
   const setRandomPracticeQuestion = () => {
@@ -28,6 +28,7 @@ const Practice = ({ msgAlert, history, practiceQuestions, chooseRandomPracticeQu
         practiceQuestion={practiceQuestion}
         setRandomPracticeQuestion={setRandomPracticeQuestion}
         useMacrons={useMacrons}
+        practiceMode={practiceMode}
       />
     )
   }
