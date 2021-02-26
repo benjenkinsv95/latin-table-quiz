@@ -175,8 +175,10 @@ class App extends Component {
         }
       ]),
       useMacrons: loadBooleanOption('useMacrons', true),
-      // type-all, type-one
-      practiceMode: localStorage.getItem('practiceMode') || 'type-all'
+      // type-all
+      practiceMode: localStorage.getItem('practiceMode') || 'type-all',
+      // should type-one hide the other inputs or fill them in
+      typeOneHideOthers: loadBooleanOption('typeOneHideOthers', true)
     }
   }
 
@@ -188,6 +190,11 @@ class App extends Component {
   setPracticeMode = practiceMode => {
     this.setState({ practiceMode })
     localStorage.setItem('practiceMode', practiceMode)
+  }
+
+  setTypeOneHideOthers = typeOneHideOthers => {
+    this.setState({ typeOneHideOthers })
+    saveBooleanOption('typeOneHideOthers', typeOneHideOthers)
   }
 
   chooseRandomPracticeQuestion = questionType => {
@@ -226,7 +233,7 @@ class App extends Component {
   }
 
   render () {
-    const { msgAlerts, user, practiceQuestions, useMacrons, practiceMode } = this.state
+    const { msgAlerts, user, practiceQuestions, useMacrons, practiceMode, typeOneHideOthers } = this.state
 
     return (
       <Fragment>
@@ -252,6 +259,8 @@ class App extends Component {
               setUseMacrons={this.setUseMacrons}
               setPracticeMode={this.setPracticeMode}
               practiceMode={practiceMode}
+              typeOneHideOthers={typeOneHideOthers}
+              setTypeOneHideOthers={this.setTypeOneHideOthers}
             />
           )} />
           <Route exact path='/practice' render={() => (
@@ -261,6 +270,7 @@ class App extends Component {
               chooseRandomPracticeQuestion={this.chooseRandomPracticeQuestion}
               useMacrons={useMacrons}
               practiceMode={practiceMode}
+              typeOneHideOthers={typeOneHideOthers}
             />
           )} />
           <Route path='/sign-up' render={() => (

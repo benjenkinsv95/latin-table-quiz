@@ -6,7 +6,8 @@ import Button from 'react-bootstrap/Button'
 
 import messages from '../AutoDismissAlert/messages'
 
-const PracticeOptions = ({ msgAlert, history, useMacrons, setUseMacrons, setPracticeMode, practiceMode }) => {
+const PracticeOptions = ({ msgAlert, history, useMacrons, setUseMacrons, setPracticeMode,
+  practiceMode, typeOneHideOthers, setTypeOneHideOthers }) => {
   const onStartPractice = event => {
     event.preventDefault()
 
@@ -36,9 +37,19 @@ const PracticeOptions = ({ msgAlert, history, useMacrons, setUseMacrons, setPrac
           <Form.Check
             type='radio'
             label='Type 1 Case at Random'
+            inline
             checked={practiceMode === 'type-one'}
             onChange={() => setPracticeMode('type-one')}
           />
+          <Form.Check
+            type='checkbox'
+            label='Hide Other Cases'
+            inline
+            checked={typeOneHideOthers}
+            onChange={() => setTypeOneHideOthers(!typeOneHideOthers)}
+            disabled={practiceMode !== 'type-one'}
+          />
+
           <Form.Check
             type='radio'
             label='Type All Cases'

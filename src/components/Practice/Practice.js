@@ -2,15 +2,20 @@ import React, { useEffect, useState } from 'react'
 import { withRouter } from 'react-router-dom'
 
 import DeclensionPractice from '../DeclensionPractice/DeclensionPractice'
+import { removeElementAtRandom } from '../../utils'
 
 // import messages from '../AutoDismissAlert/messages'
 
-const Practice = ({ msgAlert, history, practiceQuestions, chooseRandomPracticeQuestion, useMacrons, practiceMode }) => {
+const Practice = ({ msgAlert, history, practiceQuestions, chooseRandomPracticeQuestion, useMacrons, practiceMode, typeOneHideOthers }) => {
   const [practiceQuestion, setPracticeQuestion] = useState(null)
+  const [typeOneField, setTypeOneField] = useState(null)
 
   const setRandomPracticeQuestion = () => {
     const randomPractice = chooseRandomPracticeQuestion('Declension')
     setPracticeQuestion(randomPractice)
+    const fieldsCopy = [...randomPractice.fields]
+    const fieldToType = removeElementAtRandom(fieldsCopy)
+    setTypeOneField(fieldToType)
   }
 
   useEffect(() => {
@@ -29,6 +34,8 @@ const Practice = ({ msgAlert, history, practiceQuestions, chooseRandomPracticeQu
         setRandomPracticeQuestion={setRandomPracticeQuestion}
         useMacrons={useMacrons}
         practiceMode={practiceMode}
+        typeOneHideOthers={typeOneHideOthers}
+        typeOneField={typeOneField}
       />
     )
   }

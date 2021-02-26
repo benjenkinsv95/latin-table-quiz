@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import useSound from 'use-sound'
-import { removeMacrons, removeElementAtRandom } from '../../utils'
+import { removeMacrons } from '../../utils'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -24,7 +24,7 @@ const getGendersDipslay = genders => genders.map((gender, index) => (
 const onlyVisibleOnXs = 'd-block d-sm-none'
 const hiddenOnXs = 'd-none d-sm-block'
 
-const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPracticeQuestion, useMacrons, practiceMode }) => {
+const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPracticeQuestion, useMacrons, practiceMode, typeOneHideOthers, typeOneField }) => {
   const [checkedAnswers, setCheckedAnswers] = useState(false)
   const [correct, setCorrect] = useState(false)
   const [attempts, setAttempts] = useState({})
@@ -38,8 +38,10 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
   useEffect(() => {
     if (practiceMode === 'type-all') {
       // set the focus to the first input
-      const firstInput = document.querySelector('input')
-      firstInput.focus()
+      setTimeout(() => {
+        const firstInput = document.querySelector('input')
+        firstInput.focus()
+      }, 300)
     }
   }, [practiceQuestion])
 
@@ -58,22 +60,23 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
   useEffect(() => {
     if (!checkedAnswers && practiceMode === 'type-one') {
       // fill in all of the fields except one
-      const fieldsCopy = [...fields]
-      const fieldToType = removeElementAtRandom(fieldsCopy)
+      const otherFields = fields.filter(field => field.case !== typeOneField.case || field.number !== typeOneField.number)
       const newAttempts = { ...attempts }
 
-      for (const field of fieldsCopy) {
+      for (const field of otherFields) {
         newAttempts[`${field.case.toLowerCase()}${field.number}`] = field.answer
       }
 
       setAttempts(newAttempts)
 
       // set focused input
-      const caseNumberShishkabob = `${fieldToType.case.toLowerCase()}-${fieldToType.number.toLowerCase()}`
-      const fieldToTypeInput = document.querySelector(`#${caseNumberShishkabob}`)
-      fieldToTypeInput.focus()
+      const caseNumberShishkabob = `${typeOneField.case.toLowerCase()}-${typeOneField.number.toLowerCase()}`
+      setTimeout(() => {
+        const fieldToTypeInput = document.querySelector(`#${caseNumberShishkabob}`)
+        fieldToTypeInput.focus()
+      }, 300)
     }
-  }, [checkedAnswers])
+  }, [checkedAnswers, practiceQuestion])
 
   // when the component unmounts
   useEffect(() => {
@@ -180,15 +183,23 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
     })
   }
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter' && !checkedAnswers) {
+      handleCheckAnswers()
+    }
+  }
+
   // Turn the fields into an array of divs to show on the page
   const jsxOfFields = fields => {
     return fields.map((field, index) => {
       const caseNumberShishkabob = `${field.case.toLowerCase()}-${field.number.toLowerCase()}`
       const caseNumberCamel = `${field.case.toLowerCase()}${field.number}`
+      const typeOneHidden = practiceMode === 'type-one' && typeOneField && (field.case !== typeOneField.case || field.number !== typeOneField.number) && !checkedAnswers
+      const typeOneHiddenClass = typeOneHidden ? 'd-none' : ''
       return (
         // Set the className so grid can place them on the screen ex. nominative-singular
         <div key={index} className={caseNumberShishkabob}>
-          <Form.Group>
+          <Form.Group className={typeOneHiddenClass}>
             {/* Only show the label directly above the field on xs screens */}
             <Form.Label className={onlyVisibleOnXs}><h5>{getLabelJsx(field.case)}</h5></Form.Label>
             <Form.Control
@@ -205,6 +216,7 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
               // turn off autocomplete, so folks have to type it each time
               autoComplete="off"
               id={caseNumberShishkabob}
+              onKeyDown={handleKeyDown}
             />
             {/* Set tooltip text underneath the input to show the correct answer. */}
             {getDangerTextJsx(attempts[`${field.case.trim().toLowerCase()}${field.number}`], field)}
