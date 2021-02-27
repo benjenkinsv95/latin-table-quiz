@@ -13,8 +13,8 @@ const GenitiveDefinition = () => {
 
   return (
     <Fragment>
-      <Nav.Link eventKey="link-genitive" onClick={handleShow}>
-        genitive
+      <Nav.Link className='text-center  pt-0' eventKey="link-genitive" onClick={handleShow}>
+        genitive<br className='d-none d-sm-block' /> <small>(possession)</small>
       </Nav.Link>
 
       <Modal size="lg" show={show} onHide={handleClose}>

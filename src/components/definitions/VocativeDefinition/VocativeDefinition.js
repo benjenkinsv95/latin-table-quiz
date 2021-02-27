@@ -13,8 +13,8 @@ const VocativeDefinition = () => {
 
   return (
     <Fragment>
-      <Nav.Link eventKey="link-vocative" onClick={handleShow}>
-        vocative
+      <Nav.Link className='text-center  pt-0' eventKey="link-vocative" onClick={handleShow}>
+        vocative<br className='d-none d-sm-block' /> <small>(being&nbsp;addressed)</small>
       </Nav.Link>
 
       <Modal size="lg" show={show} onHide={handleClose}>

@@ -13,8 +13,8 @@ const NominativeDefinition = () => {
 
   return (
     <Fragment>
-      <Nav.Link eventKey="link-nominative" onClick={handleShow}>
-        nominative
+      <Nav.Link className='text-center  pt-0' eventKey="link-nominative" onClick={handleShow}>
+        nominative<br className='d-none d-sm-block' /> <small>(subject)</small>
       </Nav.Link>
 
       <Modal size="lg" show={show} onHide={handleClose}>

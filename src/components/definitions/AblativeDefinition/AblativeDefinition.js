@@ -13,8 +13,8 @@ const AblativeDefinition = () => {
 
   return (
     <Fragment>
-      <Nav.Link eventKey="link-ablative" onClick={handleShow}>
-        ablative
+      <Nav.Link className='text-center  pt-0' eventKey="link-ablative" onClick={handleShow}>
+        ablative<br className='d-none d-sm-block' /> <small>(prepositions)</small>
       </Nav.Link>
 
       <Modal size="lg" show={show} onHide={handleClose}>

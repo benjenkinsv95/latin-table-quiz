@@ -13,8 +13,8 @@ const AccusativeDefinition = () => {
 
   return (
     <Fragment>
-      <Nav.Link eventKey="link-accusative" onClick={handleShow}>
-        accusative
+      <Nav.Link className='text-center  pt-0' eventKey="link-accusative" onClick={handleShow}>
+        accusative<br className='d-none d-sm-block' /> <small>(direct&nbsp;object)</small>
       </Nav.Link>
 
       <Modal size="lg" show={show} onHide={handleClose}>

@@ -13,8 +13,8 @@ const DativeDefinition = () => {
 
   return (
     <Fragment>
-      <Nav.Link eventKey="link-dative" onClick={handleShow}>
-        dative
+      <Nav.Link className='text-center  pt-0' eventKey="link-dative" onClick={handleShow}>
+        dative<br className='d-none d-sm-block' /> <small>(indirect&nbsp;object)</small>
       </Nav.Link>
 
       <Modal size="lg" show={show} onHide={handleClose}>
