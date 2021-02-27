@@ -31,126 +31,412 @@ class App extends Component {
           singleGender: true, // Whether this word has a single gender (across different practice options) (false for adjectives)
           audioUrl: 'sounds/01 rosa 1st decl Latin Summary of Forms (Ranieri).m4a',
           fields: [
-            { case: 'Nominative', number: 'Singular', answer: 'rosa' },
-            { case: 'Genitive', number: 'Singular', answer: 'rosae' },
-            { case: 'Dative', number: 'Singular', answer: 'rosae' },
-            { case: 'Accusative', number: 'Singular', answer: 'rosam' },
-            { case: 'Ablative', number: 'Singular', answer: 'rosā' },
+            { case: 'Nominative', number: 'Singular', answer: 'rosa', audioUrl: 'sounds/01 rosa 1st decl word rosa Latin Summary of Forms (Ranieri) (mp3cut.net).m4a' },
+            { case: 'Genitive', number: 'Singular', answer: 'rosae', audioUrl: 'sounds/01 rosa 1st decl word rosae Latin Summary of Forms (Ranieri) (mp3cut.net).m4a' },
+            { case: 'Dative', number: 'Singular', answer: 'rosae', audioUrl: 'sounds/01 rosa 1st decl word rosae Latin Summary of Forms (Ranieri) (mp3cut.net).m4a' },
+            { case: 'Accusative', number: 'Singular', answer: 'rosam', audioUrl: 'sounds/01 rosa 1st decl word rosam Latin Summary of Forms (Ranieri) (mp3cut.net).m4a' },
+            { case: 'Ablative', number: 'Singular', answer: 'rosā', audioUrl: 'sounds/01 rosa 1st decl word rosā Latin Summary of Forms (Ranieri) (mp3cut.net).m4a' },
 
-            { case: 'Nominative', number: 'Plural', answer: 'rosae' },
-            { case: 'Genitive', number: 'Plural', answer: 'rosārum' },
-            { case: 'Dative', number: 'Plural', answer: 'rosīs' },
-            { case: 'Accusative', number: 'Plural', answer: 'rosās' },
-            { case: 'Ablative', number: 'Plural', answer: 'rosīs' }
+            { case: 'Nominative', number: 'Plural', answer: 'rosae', audioUrl: 'sounds/01 rosa 1st decl word rosae Latin Summary of Forms (Ranieri) (mp3cut.net).m4a' },
+            { case: 'Genitive', number: 'Plural', answer: 'rosārum', audioUrl: 'sounds/01 rosa 1st decl word rosārum Latin Summary of Forms (Ranieri) (mp3cut.net).m4a' },
+            { case: 'Dative', number: 'Plural', answer: 'rosīs', audioUrl: 'sounds/01 rosa 1st decl word rosīs Latin Summary of Forms (Ranieri) (mp3cut.net).m4a' },
+            { case: 'Accusative', number: 'Plural', answer: 'rosās', audioUrl: 'sounds/01 rosa 1st decl word rosās Latin Summary of Forms (Ranieri) (mp3cut.net).m4a' },
+            { case: 'Ablative', number: 'Plural', answer: 'rosīs', audioUrl: 'sounds/01 rosa 1st decl word rosīs Latin Summary of Forms (Ranieri) (mp3cut.net).m4a' }
           ]
         },
         {
-          word: 'Friend',
-          type: 'Declension',
-          group: '2nd',
-          genders: ['Masculine'],
-          singleGender: true,
-          audioUrl: 'sounds/02a amicus 2nd decl, Latin Summary of Forms (Ranieri).m4a',
-          fields: [
-            { case: 'Nominative', number: 'Singular', answer: 'amīcus' },
-            { case: 'Genitive', number: 'Singular', answer: 'amīcī' },
-            { case: 'Dative', number: 'Singular', answer: 'amīcō' },
-            { case: 'Accusative', number: 'Singular', answer: 'amīcum' },
-            { case: 'Ablative', number: 'Singular', answer: 'amīcō' },
-            { case: 'Vocative', number: 'Singular', answer: 'amīce' },
-
-            { case: 'Nominative', number: 'Plural', answer: 'amīcī' },
-            { case: 'Genitive', number: 'Plural', answer: 'amīcōrum' },
-            { case: 'Dative', number: 'Plural', answer: 'amīcīs' },
-            { case: 'Accusative', number: 'Plural', answer: 'amīcōs' },
-            { case: 'Ablative', number: 'Plural', answer: 'amīcīs' }
+          'word': 'Friend',
+          'type': 'Declension',
+          'group': '2nd',
+          'genders': [
+            'Masculine'
+          ],
+          'singleGender': true,
+          'audioUrl': 'sounds/02a amicus 2nd decl, Latin Summary of Forms (Ranieri).m4a',
+          'fields': [
+            {
+              'case': 'Nominative',
+              'number': 'Singular',
+              'answer': 'amīcus',
+              'audioUrl': 'sounds/02a amicus 2nd decl word amīcus, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Genitive',
+              'number': 'Singular',
+              'answer': 'amīcī',
+              'audioUrl': 'sounds/02a amicus 2nd decl word amīcī, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Dative',
+              'number': 'Singular',
+              'answer': 'amīcō',
+              'audioUrl': 'sounds/02a amicus 2nd decl word amīcō, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Accusative',
+              'number': 'Singular',
+              'answer': 'amīcum',
+              'audioUrl': 'sounds/02a amicus 2nd decl word amīcum, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Ablative',
+              'number': 'Singular',
+              'answer': 'amīcō',
+              'audioUrl': 'sounds/02a amicus 2nd decl word amīcō, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Vocative',
+              'number': 'Singular',
+              'answer': 'amīce',
+              'audioUrl': 'sounds/02a amicus 2nd decl word amīce, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Nominative',
+              'number': 'Plural',
+              'answer': 'amīcī',
+              'audioUrl': 'sounds/02a amicus 2nd decl word amīcī, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Genitive',
+              'number': 'Plural',
+              'answer': 'amīcōrum',
+              'audioUrl': 'sounds/02a amicus 2nd decl word amīcōrum, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Dative',
+              'number': 'Plural',
+              'answer': 'amīcīs',
+              'audioUrl': 'sounds/02a amicus 2nd decl word amīcīs, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Accusative',
+              'number': 'Plural',
+              'answer': 'amīcōs',
+              'audioUrl': 'sounds/02a amicus 2nd decl word amīcōs, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Ablative',
+              'number': 'Plural',
+              'answer': 'amīcīs',
+              'audioUrl': 'sounds/02a amicus 2nd decl word amīcīs, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            }
           ]
         },
         {
-          word: 'Son',
-          type: 'Declension',
-          group: '2nd',
-          genders: ['Masculine'],
-          singleGender: true,
-          audioUrl: 'sounds/02b filius 2nd decl, Latin Summary of Forms (Ranieri).m4a',
-          fields: [
-            { case: 'Nominative', number: 'Singular', answer: 'fīlius' },
-            { case: 'Genitive', number: 'Singular', answer: 'fīliī' },
-            { case: 'Dative', number: 'Singular', answer: 'fīliō' },
-            { case: 'Accusative', number: 'Singular', answer: 'fīlium' },
-            { case: 'Ablative', number: 'Singular', answer: 'fīliō' },
-            { case: 'Vocative', number: 'Singular', answer: 'fīliī' },
-
-            { case: 'Nominative', number: 'Plural', answer: 'fīliī' },
-            { case: 'Genitive', number: 'Plural', answer: 'fīliōrum' },
-            { case: 'Dative', number: 'Plural', answer: 'fīliīs' },
-            { case: 'Accusative', number: 'Plural', answer: 'fīliōs' },
-            { case: 'Ablative', number: 'Plural', answer: 'fīliīs' }
+          'word': 'Son',
+          'type': 'Declension',
+          'group': '2nd',
+          'genders': [
+            'Masculine'
+          ],
+          'singleGender': true,
+          'audioUrl': 'sounds/02b filius 2nd decl, Latin Summary of Forms (Ranieri).m4a',
+          'fields': [
+            {
+              'case': 'Nominative',
+              'number': 'Singular',
+              'answer': 'fīlius',
+              'audioUrl': 'sounds/02b filius 2nd decl word fīlius, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Genitive',
+              'number': 'Singular',
+              'answer': 'fīliī',
+              'audioUrl': 'sounds/02b filius 2nd decl word fīliī, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Dative',
+              'number': 'Singular',
+              'answer': 'fīliō',
+              'audioUrl': 'sounds/02b filius 2nd decl word fīliō, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Accusative',
+              'number': 'Singular',
+              'answer': 'fīlium',
+              'audioUrl': 'sounds/02b filius 2nd decl word fīlium, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Ablative',
+              'number': 'Singular',
+              'answer': 'fīliō',
+              'audioUrl': 'sounds/02b filius 2nd decl word fīliō, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Vocative',
+              'number': 'Singular',
+              'answer': 'fīlī',
+              'audioUrl': 'sounds/02b filius 2nd decl word fīlī, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Nominative',
+              'number': 'Plural',
+              'answer': 'fīliī',
+              'audioUrl': 'sounds/02b filius 2nd decl word fīliī, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Genitive',
+              'number': 'Plural',
+              'answer': 'fīliōrum',
+              'audioUrl': 'sounds/02b filius 2nd decl word fīliōrum, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Dative',
+              'number': 'Plural',
+              'answer': 'fīliīs',
+              'audioUrl': 'sounds/02b filius 2nd decl word fīliīs, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Accusative',
+              'number': 'Plural',
+              'answer': 'fīliōs',
+              'audioUrl': 'sounds/02b filius 2nd decl word fīliōs, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Ablative',
+              'number': 'Plural',
+              'answer': 'fīliīs',
+              'audioUrl': 'sounds/02b filius 2nd decl word fīliīs, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            }
           ]
         },
         {
-          word: 'Boy',
-          type: 'Declension',
-          group: '2nd',
-          genders: ['Masculine'],
-          singleGender: true,
-          audioUrl: 'sounds/02c puer 2nd decl, Latin Summary of Forms (Ranieri).m4a',
-          fields: [
-            { case: 'Nominative', number: 'Singular', answer: 'puer' },
-            { case: 'Genitive', number: 'Singular', answer: 'puerī' },
-            { case: 'Dative', number: 'Singular', answer: 'puerō' },
-            { case: 'Accusative', number: 'Singular', answer: 'puerum' },
-            { case: 'Ablative', number: 'Singular', answer: 'puerō' },
-
-            { case: 'Nominative', number: 'Plural', answer: 'puerī' },
-            { case: 'Genitive', number: 'Plural', answer: 'puerōrum' },
-            { case: 'Dative', number: 'Plural', answer: 'puerīs' },
-            { case: 'Accusative', number: 'Plural', answer: 'puerōs' },
-            { case: 'Ablative', number: 'Plural', answer: 'puerīs' }
+          'word': 'Boy',
+          'type': 'Declension',
+          'group': '2nd',
+          'genders': [
+            'Masculine'
+          ],
+          'singleGender': true,
+          'audioUrl': 'sounds/02c puer 2nd decl, Latin Summary of Forms (Ranieri).m4a',
+          'fields': [
+            {
+              'case': 'Nominative',
+              'number': 'Singular',
+              'answer': 'puer',
+              'audioUrl': 'sounds/02c puer 2nd decl word puer, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Genitive',
+              'number': 'Singular',
+              'answer': 'puerī',
+              'audioUrl': 'sounds/02c puer 2nd decl word puerī, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Dative',
+              'number': 'Singular',
+              'answer': 'puerō',
+              'audioUrl': 'sounds/02c puer 2nd decl word puerō, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Accusative',
+              'number': 'Singular',
+              'answer': 'puerum',
+              'audioUrl': 'sounds/02c puer 2nd decl word puerum, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Ablative',
+              'number': 'Singular',
+              'answer': 'puerō',
+              'audioUrl': 'sounds/02c puer 2nd decl word puerō, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Nominative',
+              'number': 'Plural',
+              'answer': 'puerī',
+              'audioUrl': 'sounds/02c puer 2nd decl word puerī, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Genitive',
+              'number': 'Plural',
+              'answer': 'puerōrum',
+              'audioUrl': 'sounds/02c puer 2nd decl word puerōrum, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Dative',
+              'number': 'Plural',
+              'answer': 'puerīs',
+              'audioUrl': 'sounds/02c puer 2nd decl word puerīs, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Accusative',
+              'number': 'Plural',
+              'answer': 'puerōs',
+              'audioUrl': 'sounds/02c puer 2nd decl word puerōs, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Ablative',
+              'number': 'Plural',
+              'answer': 'puerīs',
+              'audioUrl': 'sounds/02c puer 2nd decl word puerīs, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            }
           ]
         },
         {
-          word: 'Field',
-          type: 'Declension',
-          group: '2nd',
-          genders: ['Masculine'],
-          singleGender: true,
-          audioUrl: 'sounds/02d ager 2nd decl, Latin Summary of Forms (Ranieri).m4a',
-          fields: [
-            { case: 'Nominative', number: 'Singular', answer: 'ager' },
-            { case: 'Genitive', number: 'Singular', answer: 'agrī' },
-            { case: 'Dative', number: 'Singular', answer: 'agrō' },
-            { case: 'Accusative', number: 'Singular', answer: 'agrum' },
-            { case: 'Ablative', number: 'Singular', answer: 'agrō' },
-
-            { case: 'Nominative', number: 'Plural', answer: 'agrī' },
-            { case: 'Genitive', number: 'Plural', answer: 'agrōrum' },
-            { case: 'Dative', number: 'Plural', answer: 'agrīs' },
-            { case: 'Accusative', number: 'Plural', answer: 'agrōs' },
-            { case: 'Ablative', number: 'Plural', answer: 'agrīs' }
+          'word': 'Field',
+          'type': 'Declension',
+          'group': '2nd',
+          'genders': [
+            'Masculine'
+          ],
+          'singleGender': true,
+          'audioUrl': 'sounds/02d ager 2nd decl, Latin Summary of Forms (Ranieri).m4a',
+          'fields': [
+            {
+              'case': 'Nominative',
+              'number': 'Singular',
+              'answer': 'ager',
+              'audioUrl': 'sounds/02d ager 2nd decl word ager, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Genitive',
+              'number': 'Singular',
+              'answer': 'agrī',
+              'audioUrl': 'sounds/02d ager 2nd decl word agrī, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Dative',
+              'number': 'Singular',
+              'answer': 'agrō',
+              'audioUrl': 'sounds/02d ager 2nd decl word agrō, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Accusative',
+              'number': 'Singular',
+              'answer': 'agrum',
+              'audioUrl': 'sounds/02d ager 2nd decl word agrum, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Ablative',
+              'number': 'Singular',
+              'answer': 'agrō',
+              'audioUrl': 'sounds/02d ager 2nd decl word agrō, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Nominative',
+              'number': 'Plural',
+              'answer': 'agrī',
+              'audioUrl': 'sounds/02d ager 2nd decl word agrī, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Genitive',
+              'number': 'Plural',
+              'answer': 'agrōrum',
+              'audioUrl': 'sounds/02d ager 2nd decl word agrōrum, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Dative',
+              'number': 'Plural',
+              'answer': 'agrīs',
+              'audioUrl': 'sounds/02d ager 2nd decl word agrīs, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Accusative',
+              'number': 'Plural',
+              'answer': 'agrōs',
+              'audioUrl': 'sounds/02d ager 2nd decl word agrōs, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Ablative',
+              'number': 'Plural',
+              'answer': 'agrīs',
+              'audioUrl': 'sounds/02d ager 2nd decl word agrīs, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            }
           ]
         },
         {
-          word: 'Gift',
-          type: 'Declension',
-          group: '2nd',
-          genders: ['Neuter'],
-          singleGender: true,
-          audioUrl: 'sounds/02e donum 2nd decl, Latin Summary of Forms (Ranieri).m4a',
-          fields: [
-            { case: 'Nominative', number: 'Singular', answer: 'dōnum' },
-            { case: 'Genitive', number: 'Singular', answer: 'dōnī' },
-            { case: 'Dative', number: 'Singular', answer: 'dōnō' },
-            { case: 'Accusative', number: 'Singular', answer: 'dōnum' },
-            { case: 'Ablative', number: 'Singular', answer: 'dōnō' },
-
-            { case: 'Nominative', number: 'Plural', answer: 'dōna' },
-            { case: 'Genitive', number: 'Plural', answer: 'dōnōrum' },
-            { case: 'Dative', number: 'Plural', answer: 'dōnīs' },
-            { case: 'Accusative', number: 'Plural', answer: 'dōna' },
-            { case: 'Ablative', number: 'Plural', answer: 'dōnīs' }
+          'word': 'Gift',
+          'type': 'Declension',
+          'group': '2nd',
+          'genders': [
+            'Neuter'
+          ],
+          'singleGender': true,
+          'audioUrl': 'sounds/02e donum 2nd decl, Latin Summary of Forms (Ranieri).m4a',
+          'fields': [
+            {
+              'case': 'Nominative',
+              'number': 'Singular',
+              'answer': 'dōnum',
+              'audioUrl': 'sounds/02e donum 2nd decl word dōnum, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Genitive',
+              'number': 'Singular',
+              'answer': 'dōnī',
+              'audioUrl': 'sounds/02e donum 2nd decl word dōnī, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Dative',
+              'number': 'Singular',
+              'answer': 'dōnō',
+              'audioUrl': 'sounds/02e donum 2nd decl word dōnō, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Accusative',
+              'number': 'Singular',
+              'answer': 'dōnum',
+              'audioUrl': 'sounds/02e donum 2nd decl word dōnum, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Ablative',
+              'number': 'Singular',
+              'answer': 'dōnō',
+              'audioUrl': 'sounds/02e donum 2nd decl word dōnō, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Nominative',
+              'number': 'Plural',
+              'answer': 'dōna',
+              'audioUrl': 'sounds/02e donum 2nd decl word dōna, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Genitive',
+              'number': 'Plural',
+              'answer': 'dōnōrum',
+              'audioUrl': 'sounds/02e donum 2nd decl word dōnōrum, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Dative',
+              'number': 'Plural',
+              'answer': 'dōnīs',
+              'audioUrl': 'sounds/02e donum 2nd decl word dōnīs, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Accusative',
+              'number': 'Plural',
+              'answer': 'dōna',
+              'audioUrl': 'sounds/02e donum 2nd decl word dōna, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            },
+            {
+              'case': 'Ablative',
+              'number': 'Plural',
+              'answer': 'dōnīs',
+              'audioUrl': 'sounds/02e donum 2nd decl word dōnīs, Latin Summary of Forms (Ranieri) (mp3cut.net).m4a'
+            }
           ]
         },
+        // { // TODO: Finish this table
+        //   word: 'King',
+        //   type: 'Declension',
+        //   group: '3rd',
+        //   genders: ['Neuter'],
+        //   singleGender: true,
+        //   audioUrl: 'sounds/03a rex 3rd decl, Latin Summary of Forms (Ranieri).m4a',
+        //   fields: [
+        //     { case: 'Nominative', number: 'Singular', answer: 'dōnum' },
+        //     { case: 'Genitive', number: 'Singular', answer: 'dōnī' },
+        //     { case: 'Dative', number: 'Singular', answer: 'dōnō' },
+        //     { case: 'Accusative', number: 'Singular', answer: 'dōnum' },
+        //     { case: 'Ablative', number: 'Singular', answer: 'dōnō' },
+
+        //     { case: 'Nominative', number: 'Plural', answer: 'dōna' },
+        //     { case: 'Genitive', number: 'Plural', answer: 'dōnōrum' },
+        //     { case: 'Dative', number: 'Plural', answer: 'dōnīs' },
+        //     { case: 'Accusative', number: 'Plural', answer: 'dōna' },
+        //     { case: 'Ablative', number: 'Plural', answer: 'dōnīs' }
+        //   ]
+        // },
         {
           word: 'Long',
           type: 'Adjective Comparison', // declension or adjective
@@ -175,10 +461,14 @@ class App extends Component {
         }
       ]),
       useMacrons: loadBooleanOption('useMacrons', true),
-      // type-all
-      practiceMode: localStorage.getItem('practiceMode') || 'type-all',
-      // should type-one hide the other inputs or fill them in
-      typeOneHideOthers: loadBooleanOption('typeOneHideOthers', true)
+      // practice all-cases or one-case
+      practiceMode: localStorage.getItem('practiceMode') || 'all-cases',
+      // should one-case hide the other inputs or fill them in
+      typeOneHideOthers: loadBooleanOption('typeOneHideOthers', true),
+      // type or speak
+      practiceType: localStorage.getItem('practiceType') || 'type',
+      // Should play audio when answer correct
+      shouldPlayAudio: loadBooleanOption('shouldPlayAudio', true)
     }
   }
 
@@ -195,6 +485,16 @@ class App extends Component {
   setTypeOneHideOthers = typeOneHideOthers => {
     this.setState({ typeOneHideOthers })
     saveBooleanOption('typeOneHideOthers', typeOneHideOthers)
+  }
+
+  setPracticeType = practiceType => {
+    this.setState({ practiceType })
+    localStorage.setItem('practiceType', practiceType)
+  }
+
+  setShouldPlayAudio = shouldPlayAudio => {
+    this.setState({ shouldPlayAudio })
+    saveBooleanOption('shouldPlayAudio', shouldPlayAudio)
   }
 
   chooseRandomPracticeQuestion = questionType => {
@@ -233,7 +533,8 @@ class App extends Component {
   }
 
   render () {
-    const { msgAlerts, user, practiceQuestions, useMacrons, practiceMode, typeOneHideOthers } = this.state
+    const { msgAlerts, user, practiceQuestions, useMacrons,
+      practiceMode, practiceType, typeOneHideOthers, shouldPlayAudio } = this.state
 
     return (
       <Fragment>
@@ -259,8 +560,12 @@ class App extends Component {
               setUseMacrons={this.setUseMacrons}
               setPracticeMode={this.setPracticeMode}
               practiceMode={practiceMode}
+              setPracticeType={this.setPracticeType}
+              practiceType={practiceType}
               typeOneHideOthers={typeOneHideOthers}
               setTypeOneHideOthers={this.setTypeOneHideOthers}
+              shouldPlayAudio={shouldPlayAudio}
+              setShouldPlayAudio={this.setShouldPlayAudio}
             />
           )} />
           <Route exact path='/practice' render={() => (
@@ -271,6 +576,8 @@ class App extends Component {
               useMacrons={useMacrons}
               practiceMode={practiceMode}
               typeOneHideOthers={typeOneHideOthers}
+              practiceType={practiceType}
+              shouldPlayAudio={shouldPlayAudio}
             />
           )} />
           <Route path='/sign-up' render={() => (

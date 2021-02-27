@@ -6,7 +6,8 @@ import { removeElementAtRandom } from '../../utils'
 
 // import messages from '../AutoDismissAlert/messages'
 
-const Practice = ({ msgAlert, history, practiceQuestions, chooseRandomPracticeQuestion, useMacrons, practiceMode, typeOneHideOthers }) => {
+const Practice = ({ msgAlert, history, practiceQuestions, chooseRandomPracticeQuestion,
+  useMacrons, practiceMode, typeOneHideOthers, practiceType, shouldPlayAudio }) => {
   const [practiceQuestion, setPracticeQuestion] = useState(null)
   const [typeOneField, setTypeOneField] = useState(null)
 
@@ -36,6 +37,8 @@ const Practice = ({ msgAlert, history, practiceQuestions, chooseRandomPracticeQu
         practiceMode={practiceMode}
         typeOneHideOthers={typeOneHideOthers}
         typeOneField={typeOneField}
+        practiceType={practiceType}
+        shouldPlayAudio={shouldPlayAudio}
       />
     )
   }

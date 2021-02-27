@@ -6,8 +6,9 @@ import Button from 'react-bootstrap/Button'
 
 import messages from '../AutoDismissAlert/messages'
 
-const PracticeOptions = ({ msgAlert, history, useMacrons, setUseMacrons, setPracticeMode,
-  practiceMode, typeOneHideOthers, setTypeOneHideOthers }) => {
+const PracticeOptions = ({ msgAlert, history, useMacrons, setUseMacrons,
+  setPracticeMode, practiceMode, setPracticeType, practiceType, typeOneHideOthers, setTypeOneHideOthers,
+  shouldPlayAudio, setShouldPlayAudio }) => {
   const onStartPractice = event => {
     event.preventDefault()
 
@@ -33,13 +34,38 @@ const PracticeOptions = ({ msgAlert, history, useMacrons, setUseMacrons, setPrac
             checked={useMacrons}
             onChange={() => setUseMacrons(!useMacrons)}
           />
+          <Form.Check
+            type='checkbox'
+            label='Play Audio'
+            checked={shouldPlayAudio}
+            onChange={() => setShouldPlayAudio(!shouldPlayAudio)}
+          />
+          <br/>
+          <h5>Type</h5>
+          <Form.Check
+            type='radio'
+            label='Type Cases'
+            inline
+            checked={practiceType === 'type'}
+            onChange={() => setPracticeType('type')}
+          />
+          <Form.Check
+            type='radio'
+            label='Say Cases'
+            inline
+            checked={practiceType === 'speak'}
+            onChange={() => setPracticeType('speak')}
+          />
+          <br/>
+          <br/>
+
           <h5>Mode</h5>
           <Form.Check
             type='radio'
-            label='Type 1 Case at Random'
+            label='1 Case at Random'
             inline
-            checked={practiceMode === 'type-one'}
-            onChange={() => setPracticeMode('type-one')}
+            checked={practiceMode === 'one-case'}
+            onChange={() => setPracticeMode('one-case')}
           />
           <Form.Check
             type='checkbox'
@@ -47,15 +73,17 @@ const PracticeOptions = ({ msgAlert, history, useMacrons, setUseMacrons, setPrac
             inline
             checked={typeOneHideOthers}
             onChange={() => setTypeOneHideOthers(!typeOneHideOthers)}
-            disabled={practiceMode !== 'type-one'}
+            disabled={practiceMode !== 'one-case'}
           />
 
           <Form.Check
             type='radio'
-            label='Type All Cases'
-            checked={practiceMode === 'type-all'}
-            onChange={() => setPracticeMode('type-all')}
+            label='All Cases'
+            checked={practiceMode === 'all-cases'}
+            onChange={() => setPracticeMode('all-cases')}
           />
+
+          <br/>
           <Button variant="primary" type="submit">
             Start Practice
           </Button>

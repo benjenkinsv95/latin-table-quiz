@@ -79,11 +79,19 @@ html, body, .grid-container { margin: 0; }
 
 .vocative-plural { grid-area: vocative-plural; }
 
+.grid-container > div {
+  min-height: 84px;
+}
+
 // on xs screens
 @media (max-width: 575.98px) { 
   
   .grid-container {
     display: block;
+  }
+
+  .grid-container > div {
+    min-height: inherit;
   }
 }
 
@@ -101,3 +109,8 @@ html, body, .grid-container { margin: 0; }
   color: lightskyblue;
   font-weight: 700;
 }
+
+.play-button {
+  cursor: pointer;
+}
+

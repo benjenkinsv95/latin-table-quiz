@@ -24,11 +24,33 @@ const getGendersDipslay = genders => genders.map((gender, index) => (
 const onlyVisibleOnXs = 'd-block d-sm-none'
 const hiddenOnXs = 'd-none d-sm-block'
 
-const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPracticeQuestion, useMacrons, practiceMode, typeOneHideOthers, typeOneField }) => {
+const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPracticeQuestion,
+  useMacrons, practiceMode, practiceType, typeOneHideOthers, typeOneField, shouldPlayAudio }) => {
   const [checkedAnswers, setCheckedAnswers] = useState(false)
   const [correct, setCorrect] = useState(false)
   const [attempts, setAttempts] = useState({})
-  const [playAudio, { stop: stopAudio }] = useSound(practiceQuestion.audioUrl)
+  // If all-cases, play all of the audio snippets, otherwise just the one for the specific field
+  const audioUrl = practiceMode === 'one-case' && typeOneField.audioUrl ? typeOneField.audioUrl : practiceQuestion.audioUrl
+  const [playAudio, { stop: stopAudio }] = useSound(audioUrl)
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const useAudioFieldUrlToPlay = () => {
+    const audioFieldUrlToPlay = {}
+    const urlToFieldsArrays = practiceQuestion.fields.map((field) => ([ field.audioUrl, useSound(field.audioUrl)[0] ]))
+    urlToFieldsArrays.forEach(([audioUrl, play]) => {
+      audioFieldUrlToPlay[audioUrl] = play
+    })
+    // Hack (Ugh): The rules of hooks say that you always need to call the same hooks in the same order
+    // since the vocative case could cause `useSound` to be called 11 times, if we don't have a vocative case
+    // call `useSound` one more time to appease react. 🙄
+    if (practiceQuestion.fields.length === 10) {
+      useSound(audioUrl)
+    }
+    return audioFieldUrlToPlay
+  }
+  const audioFieldUrlToPlay = useAudioFieldUrlToPlay()
+  console.log(audioFieldUrlToPlay)
+
   const [message, setMessage] = useState('')
 
   const { word, group, type, genders, fields } = practiceQuestion
@@ -37,7 +59,7 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
 
   // Whenever there is a new practice question
   useEffect(() => {
-    if (practiceMode === 'type-all') {
+    if (practiceMode === 'all-cases') {
       // set the focus to the first input
       setTimeout(() => {
         const firstInput = document.querySelector('input')
@@ -59,7 +81,7 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
   }, [checkedAnswers])
 
   useEffect(() => {
-    if (!checkedAnswers && practiceMode === 'type-one') {
+    if (!checkedAnswers && practiceMode === 'one-case') {
       // fill in all of the fields except one
       const otherFields = fields.filter(field => field.case !== typeOneField.case || field.number !== typeOneField.number)
       const newAttempts = { ...attempts }
@@ -121,6 +143,8 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
   const getInputBg = (attempt = '', field) => {
     if (!checkedAnswers) {
       return ''
+    } else if (practiceType === 'speak' && (practiceMode === 'all-cases' || (typeOneField.case === field.case && typeOneField.number === field.number))) {
+      return 'bg-secondary text-white placeholder-white'
     } else if (isCorrect(attempt, field.answer)) {
       return 'bg-success text-white placeholder-white'
     } else {
@@ -128,11 +152,31 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
     }
   }
 
+  const getCorrectAnswerTextColor = (attempt = '', field) => {
+    if (!checkedAnswers) {
+      return ''
+    } else if (practiceType === 'speak' && (practiceMode === 'all-cases' || (typeOneField.case === field.case && typeOneField.number === field.number))) {
+      return 'text-secondary'
+    } else if (isCorrect(attempt, field.answer)) {
+      return 'text-success'
+    } else {
+      return 'text-danger'
+    }
+  }
+
   // Get the text that shows the correct answer if the user got the question wrong, otherwise a falsy value.
-  const getDangerTextJsx = (attempt = '', field) => {
-    return checkedAnswers && !isCorrect(attempt, field.answer) && (
-      <Form.Text className="text-danger answer-text">
-        Correct answer: {field.answer}
+  const getCorrectAnswerTextJsx = (attempt = '', field) => {
+    const textColor = getCorrectAnswerTextColor(attempt, field)
+    const handlePlayButton = () => {
+      stopAudio()
+      audioFieldUrlToPlay[field.audioUrl]()
+    }
+    return checkedAnswers && (!isCorrect(attempt, field.answer) || practiceType === 'speak') && (
+      <Form.Text className={`${textColor} answer-text`}>
+        Correct answer: {field.answer}{' '}
+        <span className='play-button' onClick={handlePlayButton}>
+          ▶️
+        </span>
       </Form.Text>
     )
   }
@@ -152,7 +196,9 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
     }
 
     // play the audio so users can practice their pronunciation
-    playAudio()
+    if (shouldPlayAudio) {
+      playAudio()
+    }
 
     // update the correct state
     setCorrect(checkCorrect)
@@ -192,8 +238,10 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
     return fields.map((field, index) => {
       const caseNumberShishkabob = `${field.case.toLowerCase()}-${field.number.toLowerCase()}`
       const caseNumberCamel = `${field.case.toLowerCase()}${field.number}`
-      const typeOneHidden = practiceMode === 'type-one' && typeOneField && typeOneHideOthers && (field.case !== typeOneField.case || field.number !== typeOneField.number) && !checkedAnswers
+      const typeOneHidden = practiceMode === 'one-case' && typeOneField && typeOneHideOthers && (field.case !== typeOneField.case || field.number !== typeOneField.number) && !checkedAnswers
       const typeOneHiddenClass = typeOneHidden ? 'd-none' : ''
+      const placeholderLabel = practiceType === 'type' ? 'Enter' : 'Say'
+      const disabled = practiceType === 'speak'
       return (
         // Set the className so grid can place them on the screen ex. nominative-singular
         <div key={index} className={caseNumberShishkabob}>
@@ -209,15 +257,16 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
               name={caseNumberCamel}
               // set the value to the current attempts value. ex. attempts['nominativeSingular']
               value={attempts[caseNumberCamel] || ''}
-              placeholder={`Enter ${field.case} ${field.number}`}
+              placeholder={`${placeholderLabel} ${field.case} ${field.number}`}
               onChange={handleChange}
               // turn off autocomplete, so folks have to type it each time
               autoComplete="off"
               id={caseNumberShishkabob}
               onKeyDown={handleKeyDown}
+              disabled={disabled}
             />
             {/* Set tooltip text underneath the input to show the correct answer. */}
-            {getDangerTextJsx(attempts[`${field.case.trim().toLowerCase()}${field.number}`], field)}
+            {getCorrectAnswerTextJsx(attempts[`${field.case.trim().toLowerCase()}${field.number}`], field)}
           </Form.Group>
         </div>
       )
@@ -225,7 +274,7 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
   }
 
   const showNumberLabelCss = (number) => {
-    const hide = practiceMode === 'type-one' && typeOneField && typeOneHideOthers && number !== typeOneField.number && !checkedAnswers
+    const hide = practiceMode === 'one-case' && typeOneField && typeOneHideOthers && number !== typeOneField.number && !checkedAnswers
     return hide ? 'd-none' : ''
   }
   console.log(fields)
