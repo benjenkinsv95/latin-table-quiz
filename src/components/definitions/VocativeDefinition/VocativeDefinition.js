@@ -43,7 +43,7 @@ const VocativeDefinition = () => {
                 <strong>Salve, Julī!</strong>
               </p>
 
-              <p>3) Other second declension singular nouns that end in -us end with -e. Thus, Brutus becomes Brute and Marcus becomes Marce.</p>
+              <p>3) Other second declension singular nouns that end in -us end with -e. Thus, Brutus becomes Brute and Amīcus becomes Amīce.</p>
               <p className='w100 text-center'>
                 <strong>Et tu, Brute?</strong>
               </p>
