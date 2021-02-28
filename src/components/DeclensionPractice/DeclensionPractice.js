@@ -280,11 +280,29 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
   console.log(fields)
   const singularFieldsJsx = jsxOfFields(fields.filter(field => field.number === 'Singular'))
   const pluralFieldsJsx = jsxOfFields(fields.filter(field => field.number === 'Plural'))
+  const getNotes = () => {
+    let questionNotes = ''
+
+    if (group === '1st') {
+      questionNotes += 'usually feminine ending in -a'
+    } else if (group === '2nd') {
+      questionNotes += 'usually masculine ending in -us/-er or neuter ending in -um'
+    } else if (group === '3rd') {
+      questionNotes += 'largest group of nouns'
+    } else if (group === '4th') {
+      questionNotes += 'predominant letter in the ending forms of this declension is u'
+    } else if (group === '5th') {
+      questionNotes += 'e stems'
+    }
+
+    return questionNotes
+  }
+  const notes = getNotes()
 
   return (
     <Fragment>
       <h3>{word}</h3>
-      <h6>{group} {type}</h6>
+      <h6>{group} {type} {checkedAnswers && <Fragment>({notes})</Fragment>}</h6>
       <h6>{gender}</h6>
       <div className={`grid-container mt-4 ${hasVocativeCase ? 'grid-container-vocative' : ''}`}>
         <div className={`nominative-label ${hiddenOnXs}`}><h5 className='text-right'><NominativeDefinition /></h5></div>
