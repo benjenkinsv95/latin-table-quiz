@@ -173,7 +173,7 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
     }
     return checkedAnswers && (!isCorrect(attempt, field.answer) || practiceType === 'speak') && (
       <Form.Text className={`${textColor} answer-text`}>
-        Correct answer: {field.answer}{' '}
+        Correct answer: {field.answer}&nbsp;
         <span className='play-button' onClick={handlePlayButton}>
           ▶️
         </span>
