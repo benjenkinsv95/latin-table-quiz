@@ -6,6 +6,6 @@ export default {
   signOutSuccess: 'Come back soon!',
   changePasswordSuccess: 'Password changed successfully!',
   changePasswordFailure: 'Failed to change passwords. Check your old password and try again.',
-  startPracticeSuccess: 'Practice Started. Have fun learning!',
+  startPracticeSuccess: 'Quiz Started. Have fun learning!',
   correctAnswer: 'Awesome job! 🥳 🎉'
 }
