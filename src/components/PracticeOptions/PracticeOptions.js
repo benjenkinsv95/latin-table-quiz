@@ -8,7 +8,7 @@ import messages from '../AutoDismissAlert/messages'
 
 const PracticeOptions = ({ msgAlert, history, useMacrons, setUseMacrons,
   setPracticeMode, practiceMode, setPracticeType, practiceType, typeOneHideOthers, setTypeOneHideOthers,
-  shouldPlayAudio, setShouldPlayAudio }) => {
+  shouldPlayAudio, setShouldPlayAudio, enabledDeclensions, setEnabledDeclensions }) => {
   const onStartPractice = event => {
     event.preventDefault()
 
@@ -21,6 +21,24 @@ const PracticeOptions = ({ msgAlert, history, useMacrons, setUseMacrons,
       variant: 'success'
     })
   }
+
+  const declensions = ['1st', '2nd', '3rd', '4th', '5th']
+  const declensionJsx = declensions.map(declension => (
+    <Form.Check
+      key={declension}
+      type='checkbox'
+      label={`${declension} Declension`}
+      inline
+      checked={enabledDeclensions.includes(declension)}
+      onChange={() => {
+        if (enabledDeclensions.includes(declension)) {
+          setEnabledDeclensions(enabledDeclensions.filter(enabledDeclension => enabledDeclension !== declension))
+        } else {
+          setEnabledDeclensions([...enabledDeclensions, declension])
+        }
+      }}
+    />
+  ))
 
   return (
     <div className="row">
@@ -58,6 +76,8 @@ const PracticeOptions = ({ msgAlert, history, useMacrons, setUseMacrons,
           />
           <br/>
           <br/>
+          <h5>Declensions</h5>
+          {declensionJsx}
 
           <h5>Mode</h5>
           <Form.Check
