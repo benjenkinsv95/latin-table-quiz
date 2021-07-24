@@ -1169,7 +1169,8 @@ class App extends Component {
       // type or speak
       practiceType: localStorage.getItem('practiceType') || 'type',
       // Should play audio when answer correct
-      shouldPlayAudio: loadBooleanOption('shouldPlayAudio', true),
+      // shouldPlayAudio: loadBooleanOption('shouldPlayAudio', true),
+      shouldPlayAudio: false, // re-enable after re-recording audio
       enabledDeclensions: JSON.parse(localStorage.getItem('enabledDeclensions') || '[]')
     }
   }
