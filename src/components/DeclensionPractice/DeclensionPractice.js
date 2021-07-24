@@ -167,16 +167,18 @@ const DeclensionPractice = ({ msgAlert, history, practiceQuestion, setRandomPrac
   // Get the text that shows the correct answer if the user got the question wrong, otherwise a falsy value.
   const getCorrectAnswerTextJsx = (attempt = '', field) => {
     const textColor = getCorrectAnswerTextColor(attempt, field)
-    const handlePlayButton = () => {
-      stopAudio()
-      audioFieldUrlToPlay[field.audioUrl]()
-    }
+    /* TODO Re-enable after re-recording audio */
+    // const handlePlayButton = () => {
+    //   stopAudio()
+    //   audioFieldUrlToPlay[field.audioUrl]()
+    // }
     return checkedAnswers && (!isCorrect(attempt, field.answer) || practiceType === 'speak') && (
       <Form.Text className={`${textColor} answer-text`}>
         Correct answer: {field.answer}&nbsp;
-        <span className='play-button' onClick={handlePlayButton}>
+        {/* TODO Re-enable after re-recording audio */}
+        {/* <span className='play-button' onClick={handlePlayButton}>
           ▶️
-        </span>
+        </span> */}
       </Form.Text>
     )
   }

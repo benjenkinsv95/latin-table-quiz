@@ -52,12 +52,13 @@ const PracticeOptions = ({ msgAlert, history, useMacrons, setUseMacrons,
             checked={useMacrons}
             onChange={() => setUseMacrons(!useMacrons)}
           />
-          <Form.Check
+          {/* TODO: Re-enable after re-recording audio */}
+          {/* <Form.Check
             type='checkbox'
             label='Play Audio'
             checked={shouldPlayAudio}
             onChange={() => setShouldPlayAudio(!shouldPlayAudio)}
-          />
+          /> */}
           <br/>
           <h5>Type</h5>
           <Form.Check
